@@ -1,7 +1,7 @@
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from copy import deepcopy
 from typing import Callable, Tuple
-
+import json
 from aleph_alpha_client import Client
 from tqdm import tqdm
 
@@ -31,18 +31,33 @@ def score(generation_func: Callable, client: Client, dataset_path: str, length: 
             client=client
         )
 
+
         result = run_test_cases(
             problem=problem,
             generation=generated_code,
             eval=True,
             timeout=5,
         )
+        res = deepcopy(result)
+        if res[0]['passed'] == False:
+            analysis = {
+                "problem_id": problem["problem_id"],
+                "question": problem["question"],
+                "generated_code": generated_code,
+                "test_cases": [],
+            }
 
-        #print(result)
-        if result[0]['passed'] == False:
-            print(result)
-            print('generated_code',generated_code)
-            
+            for i, res in enumerate(res):
+                analysis["test_cases"].append({
+                    "input": res.get("input"),
+                    "expected_output": res.get("expected_output"),
+                    "generated_output": res.get("output"),
+                    "passed": res.get("passed"),
+                    "traceback": res.get("traceback"),
+                })
+            with open("analysis_results.json", "a") as f:
+                f.write(json.dumps(analysis, indent=4) + "\n")
+
         passed = [r["passed"] for r in result]
         passed_test_cases = sum(passed)
         total_test_cases = len(passed)

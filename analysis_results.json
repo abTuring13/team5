@@ -1,0 +1,240 @@
+{
+    "problem_id": 4577,
+    "question": "Take debugging to a whole new level:\n\nGiven a string, remove every *single* bug.\n\nThis means you must remove all instances of the word 'bug' from within a given string, *unless* the word is plural ('bugs').\n\nFor example, given 'obugobugobuoobugsoo', you should return 'ooobuoobugsoo'.\n\nAnother example: given 'obbugugo', you should return 'obugo'.\n\nNote that all characters will be lowercase.\n\nHappy squishing!",
+    "generated_code": "def debug(s):\n    return s.replace('bug', '')",
+    "test_cases": [
+        {
+            "input": [
+                "oaisjdfowjefpoibugsjsofijeo oi bugs o bug f bug poaj sfd s"
+            ],
+            "expected_output": [
+                "oaisjdfowjefpoibugsjsofijeo oi bugs o  f  poaj sfd s"
+            ],
+            "generated_output": [
+                "oaisjdfowjefpoisjsofijeo oi s o  f  poaj sfd s"
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
+    "problem_id": 2467,
+    "question": "Find all possible combinations of k numbers that add up to a number n, given that only numbers from 1 to 9 can be used and each combination should be a unique set of numbers.\n\nNote:\n\n\n       All numbers will be positive integers.\n       The solution set must not contain duplicate combinations.\n\n\nExample 1:\n\n\nInput: k = 3, n = 7\nOutput: [[1,2,4]]\n\n\nExample 2:\n\n\nInput: k = 3, n = 9\nOutput: [[1,2,6], [1,3,5], [2,3,4]]",
+    "generated_code": "def expression_matter(a, b, c): \n return max(a*(b+c), a+b*c, (a+b)*c, a*b*c, a+b+c)",
+    "test_cases": [
+        {
+            "input": null,
+            "expected_output": null,
+            "generated_output": null,
+            "passed": false,
+            "traceback": "Traceback (most recent call last):\n  File \"/home/maxge/Coding/Makeathon TUM.ai x Aleph Alpha/team5/utilities/testing_util.py\", line 256, in run_test\n    method = getattr(tmp, method_name)  # get_attr second arg must be str\nAttributeError: module 'tmp_sol' has no attribute 'combinationSum3'. Did you mean: 'combinations'?\n"
+        }
+    ]
+}
+{
+    "problem_id": 3937,
+    "question": "We want to find the numbers higher or equal than 1000 that the sum of every four consecutives digits cannot be higher than a certain given value.\nIf the number is ``` num = d1d2d3d4d5d6 ```, and the maximum sum of 4 contiguous digits is ```maxSum```, then:\n```python\nd1 + d2 + d3 + d4 <= maxSum\nd2 + d3 + d4 + d5 <= maxSum\nd3 + d4 + d5 + d6 <= maxSum\n```\nFor that purpose, we need to create a function, ```max_sumDig()```, that receives ```nMax```, as the max value of the interval to study (the range (1000, nMax) ), and a certain value, ```maxSum```, the maximum sum that every four consecutive digits should be less or equal to. The function should output the following list with the data detailed bellow:\n\n```[(1), (2), (3)]```\n\n(1) - the amount of numbers that satisfy the constraint presented above \n\n(2) - the closest number to the mean of the results, if there are more than one, the smallest number should be chosen.\n\n(3) - the total sum of all the found numbers\n\nLet's see a case with all the details:\n```\nmax_sumDig(2000, 3) -------> [11, 1110, 12555]\n\n(1) -There are 11 found numbers: 1000, 1001, 1002, 1010, 1011, 1020, 1100, 1101, 1110, 1200 and 2000\n\n(2) - The mean of all the found numbers is:\n      (1000 + 1001 + 1002 + 1010 + 1011 + 1020 + 1100 + 1101 + 1110 + 1200 + 2000) /11 = 1141.36363,  \n      so 1110 is the number that is closest to that mean value.\n\n(3) - 12555 is the sum of all the found numbers\n      1000 + 1001 + 1002 + 1010 + 1011 + 1020 + 1100 + 1101 + 1110 + 1200 + 2000 = 12555\n\nFinally, let's see another cases\n```\nmax_sumDig(2000, 4) -----> [21, 1120, 23665]\n\nmax_sumDig(2000, 7) -----> [85, 1200, 99986]\n\nmax_sumDig(3000, 7) -----> [141, 1600, 220756]\n```\n\nHappy coding!!",
+    "generated_code": "```python\ndef max_sumDig(nMax, maxSum):\n    found = []\n    for num in range(1000, nMax):\n        num_str = str(num)\n        if all(sum(map(int, num_str[i:i+4])) <= maxSum for i in range(len(num_str)-3)):\n            found.append(num)\n    return [len(found), min(found, key=lambda x:abs(x-sum(found)/len(found))), sum(found)]\n```\nI hope it is correct. Let me know if I made a mistake.",
+    "test_cases": [
+        {
+            "input": null,
+            "expected_output": null,
+            "generated_output": null,
+            "passed": false,
+            "traceback": "Traceback (most recent call last):\n  File \"/home/maxge/Coding/Makeathon TUM.ai x Aleph Alpha/team5/utilities/testing_util.py\", line 185, in run_test\n    tmp_sol = RuntimeModule.from_string(\"tmp_sol\", \"\", sol)\n  File \"/home/maxge/miniconda3/envs/Makeathon_python310_env/lib/python3.10/site-packages/pyext.py\", line 169, in _newf\n    return self._items[f.__name__][len(args)](*args, **kwargs)\n  File \"/home/maxge/miniconda3/envs/Makeathon_python310_env/lib/python3.10/site-packages/pyext.py\", line 279, in from_string\n    _exec(s, g)\n  File \"/home/maxge/miniconda3/envs/Makeathon_python310_env/lib/python3.10/site-packages/pyext.py\", line 97, in _exec\n    def _exec(m,g): exec(m,g)\n  File \"<string>\", line 16\n    ```python\n    ^\nSyntaxError: invalid syntax\n"
+        }
+    ]
+}
+{
+    "problem_id": 2767,
+    "question": "DNA sequencing data can be stored in many different formats. In this Kata, we will be looking at SAM formatting. It is a plain text file where every line (excluding the first header lines) contains data about a \"read\" from whatever sample the file comes from. Rather than focusing on the whole read, we will take two pieces of information: the cigar string and the nucleotide sequence.\n\nThe cigar string is composed of numbers and flags. It represents how the read aligns to what is known as a reference genome. A reference genome is an accepted standard for mapping the DNA. \n\nThe nucleotide sequence shows us what bases actually make up that section of DNA. They can be represented with the letters A, T, C, or G.\n\nExample Read: ('36M', 'ACTCTTCTTGCGAAAGTTCGGTTAGTAAAGGGGATG')\n\nThe M in the above cigar string stands for \"match\", and the 36 stands for the length of the nucleotide sequence. Since all 36 bases are given the 'M' distinction, we know they all matched the reference.\n\nExample Read: ('20M10S',  'ACTCTTCTTGCGAAAGTTCGGTTAGTAAAG')\n\nIn the above cigar string, only 20 have the \"M\" distinction, but the length of the actual string of nucleotides is 30. Therefore we know that read did not match the reference. (Don't worry about what the other letters mean. That will be covered in a later kata.)\n\nYour job for this kata is to create a function that determines whether a cigar string fully matches the reference and accounts for all bases. If it does fully match, return True. If the numbers in the string do not match the full length of the string, return 'Invalid cigar'. If it does not fully match, return False.\n\n*Note for C++: Return True, False, or Invalid cigar as strings*",
+    "generated_code": "def is_matched(read):\n    cigar, seq = read\n    total = 0\n    for i in range(len(cigar)):\n        if cigar[i].isdigit():\n            total = total * 10 + int(cigar[i])\n        else:\n            total *= int(cigar[i-1] if cigar[i-1].isdigit() else 1)\n    return total == len(seq) and 'M' in cigar or 'Invalid cigar' if total != len(seq) else False",
+    "test_cases": [
+        {
+            "input": [
+                [
+                    "12S",
+                    "TGTTTCTCCAAG"
+                ]
+            ],
+            "expected_output": [
+                false
+            ],
+            "generated_output": [
+                "Invalid cigar"
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
+    "problem_id": 4317,
+    "question": "L\u0435t's create function to play cards. Our rules:\n\nWe have the preloaded `deck`:\n\n```\ndeck = ['joker','2\u2663','3\u2663','4\u2663','5\u2663','6\u2663','7\u2663','8\u2663','9\u2663','10\u2663','J\u2663','Q\u2663','K\u2663','A\u2663',\n                '2\u2666','3\u2666','4\u2666','5\u2666','6\u2666','7\u2666','8\u2666','9\u2666','10\u2666','J\u2666','Q\u2666','K\u2666','A\u2666',\n                '2\u2665','3\u2665','4\u2665','5\u2665','6\u2665','7\u2665','8\u2665','9\u2665','10\u2665','J\u2665','Q\u2665','K\u2665','A\u2665',\n                '2\u2660','3\u2660','4\u2660','5\u2660','6\u2660','7\u2660','8\u2660','9\u2660','10\u2660','J\u2660','Q\u2660','K\u2660','A\u2660']\n```\n\nWe have 3 arguments:\n\n`card1` and `card2` - any card of our deck.\n\n`trump` - the main suit of four ('\u2663', '\u2666', '\u2665', '\u2660').\n\nIf both cards have the same suit, the big one wins.\n\nIf the cards have different suits (and no one has trump) return 'Let's play again.'\n\nIf one card has `trump` unlike another, wins the first one.\n\nIf both cards have `trump`, the big one wins.\n\nIf `card1` wins, return 'The first card won.' and vice versa.\n\nIf the cards are equal, return 'Someone cheats.'\n\nA few games:\n\n```\n('3\u2663', 'Q\u2663', '\u2666') -> 'The second card won.'\n\n('5\u2665', 'A\u2663', '\u2666') -> 'Let us play again.'\n\n('8\u2660', '8\u2660', '\u2663') -> 'Someone cheats.'\n\n('2\u2666', 'A\u2660', '\u2666') -> 'The first card won.'\n\n('joker', 'joker', '\u2666') -> 'Someone cheats.'\n\n```\nP.S. As a card you can also get the string 'joker' - it means this card always wins.",
+    "generated_code": "def card_game(card_1, card_2, trump):\n    suits = {'\u2663': 0, '\u2666': 1, '\u2665': 2, '\u2660': 3}\n    ranks = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14}\n    if card_1 == 'joker' or card_2 == 'joker':\n        if card_1 == 'joker' and card_2 == 'joker':\n            return 'Someone cheats.'\n        else:\n            return 'The first card won.' if card_1 == 'joker' else 'The second card won.'\n    if suits[card_1[-1]] == suits[card_2[-1]]:\n        if ranks[card_1[:-1]] == ranks[card_2[:-1]]:\n            return 'Someone cheats.'\n        else:\n            return 'The first card won.' if",
+    "test_cases": [
+        {
+            "input": null,
+            "expected_output": null,
+            "generated_output": null,
+            "passed": false,
+            "traceback": "Traceback (most recent call last):\n  File \"/home/maxge/Coding/Makeathon TUM.ai x Aleph Alpha/team5/utilities/testing_util.py\", line 185, in run_test\n    tmp_sol = RuntimeModule.from_string(\"tmp_sol\", \"\", sol)\n  File \"/home/maxge/miniconda3/envs/Makeathon_python310_env/lib/python3.10/site-packages/pyext.py\", line 169, in _newf\n    return self._items[f.__name__][len(args)](*args, **kwargs)\n  File \"/home/maxge/miniconda3/envs/Makeathon_python310_env/lib/python3.10/site-packages/pyext.py\", line 279, in from_string\n    _exec(s, g)\n  File \"/home/maxge/miniconda3/envs/Makeathon_python310_env/lib/python3.10/site-packages/pyext.py\", line 97, in _exec\n    def _exec(m,g): exec(m,g)\n  File \"<string>\", line 28\n    return 'The first card won.' if\n                                   ^\nSyntaxError: invalid syntax\n"
+        }
+    ]
+}
+{
+    "problem_id": 3230,
+    "question": "You're a programmer in a SEO company. The SEO specialist of your company gets the list of all project keywords everyday, then he looks for the longest keys to analyze them.\n\nYou will get the list with keywords and must write a simple function that returns the biggest search keywords and sorts them in lexicographical order.\n\nFor instance you might get:\n```python\n'key1', 'key2', 'key3', 'key n', 'bigkey2', 'bigkey1'\n```\n\nAnd your function should return:\n```python\n\"'bigkey1', 'bigkey2'\"\n```\n\nDon't forget to rate this kata! Thanks :)",
+    "generated_code": "def the_biggest_search_keys(*keys):\n    max_len = max(len(key) for key in keys)\n    return ', '.join(sorted([key for key in keys if len(key) == max_len]))",
+    "test_cases": [
+        {
+            "input": [
+                "pippi"
+            ],
+            "expected_output": [
+                "'pippi'"
+            ],
+            "generated_output": [
+                "pippi"
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
+    "problem_id": 4627,
+    "question": "Simply find the closest value to zero from the list. Notice that there are negatives in the list.\n\nList is always not empty and contains only integers. Return ```None``` if it is not possible to define only one of such values. And of course, we are expecting 0 as closest value to zero.\n\nExamples:\n```code\n[2, 4, -1, -3]  => -1\n[5, 2, -2]      => None\n[5, 2, 2]       => 2\n[13, 0, -6]     => 0\n```",
+    "generated_code": "def closest(lst):\n    min_abs = min(abs(x) for x in lst)\n    closest_nums = [x for x in lst if abs(x) == min_abs]\n    return None if len(closest_nums) > 1 else closest_nums[0]",
+    "test_cases": [
+        {
+            "input": [
+                [
+                    20,
+                    26,
+                    13,
+                    -47,
+                    -35,
+                    39,
+                    24,
+                    46,
+                    -16,
+                    5,
+                    46,
+                    -30,
+                    -33,
+                    -38,
+                    -47,
+                    23,
+                    10,
+                    -39,
+                    -36,
+                    41,
+                    5,
+                    -24,
+                    28,
+                    -30,
+                    40,
+                    -24,
+                    -28,
+                    -17,
+                    -36,
+                    41
+                ]
+            ],
+            "expected_output": [
+                5
+            ],
+            "generated_output": [
+                null
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
+    "problem_id": 4532,
+    "question": "Basic regex tasks. Write a function that takes in a numeric code of any length. The function should check if the code begins with 1, 2, or 3 and return `true` if so. Return `false` otherwise. \n\nYou can assume the input will always be a number.",
+    "generated_code": "def validate_code(code):\n    return code[0] in ['1', '2', '3']",
+    "test_cases": [
+        {
+            "input": [
+                9453
+            ],
+            "expected_output": [
+                false
+            ],
+            "generated_output": null,
+            "passed": false,
+            "traceback": "Traceback (most recent call last):\n  File \"/home/maxge/Coding/Makeathon TUM.ai x Aleph Alpha/team5/utilities/testing_util.py\", line 296, in run_test\n    output = method(*inputs)\n  File \"<string>\", line 17, in validate_code\nTypeError: 'int' object is not subscriptable\n"
+        }
+    ]
+}
+{
+    "problem_id": 4566,
+    "question": "You need count how many valleys you will pass.\n\nStart is always from zero level.\n\nEvery time you go down below 0 level counts as an entry of a valley, and as you go up to 0 level from valley counts as an exit of a valley.\n\nOne passed valley is equal one entry and one exit of a valley.\n```\ns='FUFFDDFDUDFUFUF'\nU=UP\nF=FORWARD\nD=DOWN\n```\n\nTo represent string above\n```\n(level 1)  __\n(level 0)_/  \\         _(exit we are again on level 0)\n(entry-1)     \\_     _/\n(level-2)       \\/\\_/\n```\nSo here we passed one valley",
+    "generated_code": "def counting_valleys(s):\n    level = 0\n    valley = 0\n    for i in s:\n        if i == 'U':\n            level += 1\n        else:\n            level -= 1\n        if level == 0 and i == 'U':\n            valley += 1\n    return valley",
+    "test_cases": [
+        {
+            "input": [
+                "UFFDDFDUDFUFUUFFDDFDUDFUFUUFFDDFDUDFUFUUFFDDFDUDFUFUUFFDDFDUDFUFUUFFDDFDUDFUFU"
+            ],
+            "expected_output": [
+                6
+            ],
+            "generated_output": [
+                0
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
+    "problem_id": 3927,
+    "question": "Some numbers have funny properties. For example:\n\n> 89 --> 8\u00b9 + 9\u00b2 = 89 * 1\n\n> 695 --> 6\u00b2 + 9\u00b3 + 5\u2074= 1390 = 695 * 2\n\n> 46288 --> 4\u00b3 + 6\u2074+ 2\u2075 + 8\u2076 + 8\u2077 = 2360688 = 46288 * 51\n\nGiven a positive integer n written as abcd... (a, b, c, d... being digits) and a positive integer p \n- we want to find a positive integer k, if it exists, such as the sum of the digits of n taken to the successive powers of p is equal to k * n. \n\nIn other words:\n\n> Is there an integer k such as : (a ^ p + b ^ (p+1) + c ^(p+2) + d ^ (p+3) + ...) = n * k\n\nIf it is the case we will return k, if not return -1.\n\n**Note**: n and p will always be given as strictly positive integers.\n\n```python\ndig_pow(89, 1) should return 1 since 8\u00b9 + 9\u00b2 = 89 = 89 * 1\ndig_pow(92, 1) should return -1 since there is no k such as 9\u00b9 + 2\u00b2 equals 92 * k\ndig_pow(695, 2) should return 2 since 6\u00b2 + 9\u00b3 + 5\u2074= 1390 = 695 * 2\ndig_pow(46288, 3) should return 51 since 4\u00b3 + 6\u2074+ 2\u2075 + 8\u2076 + 8\u2077 = 2360688 = 46288 * 51\n```",
+    "generated_code": "def dig_pow(n, p):\n    n = str(n)\n    result = sum(int(digit) ** (p + i) for i, digit in enumerate(n))\n    return result // int(n) if result % int(n) == 0 else -1\n```",
+    "test_cases": [
+        {
+            "input": null,
+            "expected_output": null,
+            "generated_output": null,
+            "passed": false,
+            "traceback": "Traceback (most recent call last):\n  File \"/home/maxge/Coding/Makeathon TUM.ai x Aleph Alpha/team5/utilities/testing_util.py\", line 185, in run_test\n    tmp_sol = RuntimeModule.from_string(\"tmp_sol\", \"\", sol)\n  File \"/home/maxge/miniconda3/envs/Makeathon_python310_env/lib/python3.10/site-packages/pyext.py\", line 169, in _newf\n    return self._items[f.__name__][len(args)](*args, **kwargs)\n  File \"/home/maxge/miniconda3/envs/Makeathon_python310_env/lib/python3.10/site-packages/pyext.py\", line 279, in from_string\n    _exec(s, g)\n  File \"/home/maxge/miniconda3/envs/Makeathon_python310_env/lib/python3.10/site-packages/pyext.py\", line 97, in _exec\n    def _exec(m,g): exec(m,g)\n  File \"<string>\", line 20\n    ```\n    ^\nSyntaxError: invalid syntax\n"
+        }
+    ]
+}
+{
+    "problem_id": 2835,
+    "question": "Consider a sequence made up of the consecutive prime numbers. This infinite sequence would start with: \n```python\n\"2357111317192329313741434753596167717379...\"\n```\n\nYou will be given two numbers: `a` and `b`, and your task will be to return `b` elements starting from index `a` in this sequence.\n```\nFor example:\nsolve(10,5) == `19232` Because these are 5 elements from index 10 in the sequence.\n```\n\nTests go up to about index `20000`.\n\nMore examples in test cases. Good luck!\n\nPlease also try [Simple time difference](https://www.codewars.com/kata/5b76a34ff71e5de9db0000f2)",
+    "generated_code": "```python\ndef solve(a, b):\n    def is_prime(n):\n        if n < 2:\n            return False\n        for i in range(2, int(n**0.5) + 1):\n            if n % i == 0:\n                return False\n        return True\n\n    primes = []\n    i = 2\n    while len(primes) < a + b:\n        if is_prime(i):\n            primes.append(str(i))\n        i += 1\n    return ''.join(primes[a:a+b])\n```\nThis code defines a helper function `is_prime` to check if a number is prime, then generates prime numbers until it has enough to cover the range `[a, a+b)`. It then returns the corresponding substring of the concatenated prime numbers.",
+    "test_cases": [
+        {
+            "input": null,
+            "expected_output": null,
+            "generated_output": null,
+            "passed": false,
+            "traceback": "Traceback (most recent call last):\n  File \"/home/maxge/Coding/Makeathon TUM.ai x Aleph Alpha/team5/utilities/testing_util.py\", line 185, in run_test\n    tmp_sol = RuntimeModule.from_string(\"tmp_sol\", \"\", sol)\n  File \"/home/maxge/miniconda3/envs/Makeathon_python310_env/lib/python3.10/site-packages/pyext.py\", line 169, in _newf\n    return self._items[f.__name__][len(args)](*args, **kwargs)\n  File \"/home/maxge/miniconda3/envs/Makeathon_python310_env/lib/python3.10/site-packages/pyext.py\", line 279, in from_string\n    _exec(s, g)\n  File \"/home/maxge/miniconda3/envs/Makeathon_python310_env/lib/python3.10/site-packages/pyext.py\", line 97, in _exec\n    def _exec(m,g): exec(m,g)\n  File \"<string>\", line 34\n    This code defines a helper function `is_prime` to check if a number is prime, then generates prime numbers until it has enough to cover the range `[a, a+b)`. It then returns the corresponding substring of the concatenated prime numbers.\n                                                                                                                                                              ^\nSyntaxError: closing parenthesis ')' does not match opening parenthesis '['\n"
+        }
+    ]
+}
+{
+    "problem_id": 3309,
+    "question": "## Overview\nResistors are electrical components marked with colorful stripes/bands to indicate both their resistance value in ohms and how tight a tolerance that value has. If you did my Resistor Color Codes kata, you wrote a function which took a string containing a resistor's band colors, and returned a string identifying the resistor's ohms and tolerance values.\n\n\nWell, now you need that in reverse: The previous owner of your \"Beyond-Ultimate Raspberry Pi Starter Kit\" (as featured in my Fizz Buzz Cuckoo Clock kata) had emptied all the tiny labeled zip-lock bags of components into the box, so that for each resistor you need for a project, instead of looking for text on a label, you need to find one with the sequence of band colors that matches the ohms value you need.\n\n## The resistor color codes\nYou can see this Wikipedia page for a colorful chart, but the basic resistor color codes are:\n\n0: black, 1: brown, 2: red, 3: orange, 4: yellow, 5: green, 6: blue, 7: violet, 8: gray, 9: white\n\nAll resistors have at least three bands, with the first and second bands indicating the first two digits of the ohms value, and the third indicating the power of ten to multiply them by, for example a resistor with a value of 47 ohms, which equals 47 * 10^0 ohms, would have the three bands \"yellow violet black\".\n\nMost resistors also have a fourth band indicating tolerance -- in an electronics kit like yours, the tolerance will always be 5%, which is indicated by a gold band. So in your kit, the 47-ohm resistor in the above paragraph would have the four bands \"yellow violet black gold\".\n\n## Your mission\nYour function will receive a string containing the ohms value you need, followed by a space and the word \"ohms\" (to avoid Codewars unicode headaches I'm just using the word instead of the ohms unicode symbol). The way an ohms value is formatted depends on the magnitude of the value:\n\n* For resistors less than 1000 ohms, the ohms value is just formatted as the plain number. For example, with the 47-ohm resistor above, your function would receive the string `\"47 ohms\"`, and return the string `\"yellow violet black gold\".\n\n* For resistors greater than or equal to 1000 ohms, but less than 1000000 ohms, the ohms value is divided by 1000, and has a lower-case \"k\" after it. For example, if your function received the string `\"4.7k ohms\"`, it would need to return the string `\"yellow violet red gold\"`.\n\n* For resistors of 1000000 ohms or greater, the ohms value is divided by 1000000, and has an upper-case \"M\" after it. For example, if your function received the string `\"1M ohms\"`, it would need to return the string `\"brown black green gold\"`. \n\nTest case resistor values will all be between 10 ohms and 990M ohms.\n\n## More examples, featuring some common resistor values from your kit\n```\n\"10 ohms\"        \"brown black black gold\"\n\"100 ohms\"       \"brown black brown gold\"\n\"220 ohms\"       \"red red brown gold\"\n\"330 ohms\"       \"orange orange brown gold\"\n\"470 ohms\"       \"yellow violet brown gold\"\n\"680 ohms\"       \"blue gray brown gold\"\n\"1k ohms\"        \"brown black red gold\"\n\"10k ohms\"       \"brown black orange gold\"\n\"22k ohms\"       \"red red orange gold\"\n\"47k ohms\"       \"yellow violet orange gold\"\n\"100k ohms\"      \"brown black yellow gold\"\n\"330k ohms\"      \"orange orange yellow gold\"\n\"2M ohms\"        \"red black green gold\"\n```\n\nHave fun!",
+    "generated_code": "def encode_resistor_colors(ohms_string):\n    colors = [\"black\", \"brown\", \"red\", \"orange\", \"yellow\", \"green\", \"blue\", \"violet\", \"gray\", \"white\"]\n    ohms, _ = ohms_string.split()\n    if ohms.endswith(\"k\"):\n        ohms = float(ohms[:-1]) * 1000\n    elif ohms.endswith(\"M\"):\n        ohms = float(ohms[:-1]) * 1000000\n    ohms = int(ohms)\n    first_digit = ohms // 10\n    second_digit = ohms % 10\n    multiplier = 0\n    while ohms >= 10:\n        ohms /= 10\n        multiplier += 1\n    return f\"{colors[first_digit]} {colors[second_digit]} {colors[multiplier]} gold\"",
+    "test_cases": [
+        {
+            "input": [
+                "2M ohms"
+            ],
+            "expected_output": [
+                "red black green gold"
+            ],
+            "generated_output": null,
+            "passed": false,
+            "traceback": "Traceback (most recent call last):\n  File \"/home/maxge/Coding/Makeathon TUM.ai x Aleph Alpha/team5/utilities/testing_util.py\", line 296, in run_test\n    output = method(*inputs)\n  File \"<string>\", line 30, in encode_resistor_colors\nIndexError: list index out of range\n"
+        }
+    ]
+}
