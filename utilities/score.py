@@ -38,6 +38,11 @@ def score(generation_func: Callable, client: Client, dataset_path: str, length: 
             timeout=5,
         )
 
+        #print(result)
+        if result[0]['passed'] == False:
+            print(result)
+            print('generated_code',generated_code)
+            
         passed = [r["passed"] for r in result]
         passed_test_cases = sum(passed)
         total_test_cases = len(passed)
