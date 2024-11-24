@@ -1,7 +1,28 @@
 {
+    "problem_id": 4170,
+    "question": "Given an D-dimension array, where each axis is of length N, your goal is to find the sum of every index in the array starting from 0.\n\nFor Example if D=1 and N=10 then the answer would be 45 ([0,1,2,3,4,5,6,7,8,9])\nIf D=2 and N = 3 the answer is 18 which would be the sum of every number in the following:\n```python\n[\n[(0,0), (0,1), (0,2)],\n[(1,0), (1,1), (1,2)],\n[(2,0), (2,1), (2,2)]\n]\n```\n\nA naive solution could be to loop over every index in every dimension and add to a global sum. This won't work as the number of dimension is expected to be quite large.\n\nHint: A formulaic approach would be best\nHint 2: Gauss could solve the one dimensional case in his earliest of years, This is just a generalization.\n\n~~~if:javascript\nNote for JS version: Because the results will exceed the maximum safe integer easily, for such values you're only required to have a precision of at least `1 in 1e-9` to the actual answer.\n~~~",
+    "generated_code": "\n\ndef super_sum(D, N):\n    return (N * N - 1) * N ** (D - 1) // 2",
+    "test_cases": [
+        {
+            "input": [
+                17,
+                76
+            ],
+            "expected_output": [
+                60022109925215517405815155929907200
+            ],
+            "generated_output": [
+                3577169089970274644154618426163200
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
     "problem_id": 4577,
     "question": "Take debugging to a whole new level:\n\nGiven a string, remove every *single* bug.\n\nThis means you must remove all instances of the word 'bug' from within a given string, *unless* the word is plural ('bugs').\n\nFor example, given 'obugobugobuoobugsoo', you should return 'ooobuoobugsoo'.\n\nAnother example: given 'obbugugo', you should return 'obugo'.\n\nNote that all characters will be lowercase.\n\nHappy squishing!",
-    "generated_code": "def debug(s):\n    return s.replace('bug', '')",
+    "generated_code": "\n\ndef debug(s):\n    return s.replace('bug', '')",
     "test_cases": [
         {
             "input": [
@@ -19,50 +40,27 @@
     ]
 }
 {
-    "problem_id": 2467,
-    "question": "Find all possible combinations of k numbers that add up to a number n, given that only numbers from 1 to 9 can be used and each combination should be a unique set of numbers.\n\nNote:\n\n\n       All numbers will be positive integers.\n       The solution set must not contain duplicate combinations.\n\n\nExample 1:\n\n\nInput: k = 3, n = 7\nOutput: [[1,2,4]]\n\n\nExample 2:\n\n\nInput: k = 3, n = 9\nOutput: [[1,2,6], [1,3,5], [2,3,4]]",
-    "generated_code": "def expression_matter(a, b, c): \n return max(a*(b+c), a+b*c, (a+b)*c, a*b*c, a+b+c)",
-    "test_cases": [
-        {
-            "input": null,
-            "expected_output": null,
-            "generated_output": null,
-            "passed": false,
-            "traceback": "Traceback (most recent call last):\n  File \"/home/maxge/Coding/Makeathon TUM.ai x Aleph Alpha/team5/utilities/testing_util.py\", line 256, in run_test\n    method = getattr(tmp, method_name)  # get_attr second arg must be str\nAttributeError: module 'tmp_sol' has no attribute 'combinationSum3'. Did you mean: 'combinations'?\n"
-        }
-    ]
-}
-{
-    "problem_id": 3937,
-    "question": "We want to find the numbers higher or equal than 1000 that the sum of every four consecutives digits cannot be higher than a certain given value.\nIf the number is ``` num = d1d2d3d4d5d6 ```, and the maximum sum of 4 contiguous digits is ```maxSum```, then:\n```python\nd1 + d2 + d3 + d4 <= maxSum\nd2 + d3 + d4 + d5 <= maxSum\nd3 + d4 + d5 + d6 <= maxSum\n```\nFor that purpose, we need to create a function, ```max_sumDig()```, that receives ```nMax```, as the max value of the interval to study (the range (1000, nMax) ), and a certain value, ```maxSum```, the maximum sum that every four consecutive digits should be less or equal to. The function should output the following list with the data detailed bellow:\n\n```[(1), (2), (3)]```\n\n(1) - the amount of numbers that satisfy the constraint presented above \n\n(2) - the closest number to the mean of the results, if there are more than one, the smallest number should be chosen.\n\n(3) - the total sum of all the found numbers\n\nLet's see a case with all the details:\n```\nmax_sumDig(2000, 3) -------> [11, 1110, 12555]\n\n(1) -There are 11 found numbers: 1000, 1001, 1002, 1010, 1011, 1020, 1100, 1101, 1110, 1200 and 2000\n\n(2) - The mean of all the found numbers is:\n      (1000 + 1001 + 1002 + 1010 + 1011 + 1020 + 1100 + 1101 + 1110 + 1200 + 2000) /11 = 1141.36363,  \n      so 1110 is the number that is closest to that mean value.\n\n(3) - 12555 is the sum of all the found numbers\n      1000 + 1001 + 1002 + 1010 + 1011 + 1020 + 1100 + 1101 + 1110 + 1200 + 2000 = 12555\n\nFinally, let's see another cases\n```\nmax_sumDig(2000, 4) -----> [21, 1120, 23665]\n\nmax_sumDig(2000, 7) -----> [85, 1200, 99986]\n\nmax_sumDig(3000, 7) -----> [141, 1600, 220756]\n```\n\nHappy coding!!",
-    "generated_code": "```python\ndef max_sumDig(nMax, maxSum):\n    found = []\n    for num in range(1000, nMax):\n        num_str = str(num)\n        if all(sum(map(int, num_str[i:i+4])) <= maxSum for i in range(len(num_str)-3)):\n            found.append(num)\n    return [len(found), min(found, key=lambda x:abs(x-sum(found)/len(found))), sum(found)]\n```\nI hope it is correct. Let me know if I made a mistake.",
-    "test_cases": [
-        {
-            "input": null,
-            "expected_output": null,
-            "generated_output": null,
-            "passed": false,
-            "traceback": "Traceback (most recent call last):\n  File \"/home/maxge/Coding/Makeathon TUM.ai x Aleph Alpha/team5/utilities/testing_util.py\", line 185, in run_test\n    tmp_sol = RuntimeModule.from_string(\"tmp_sol\", \"\", sol)\n  File \"/home/maxge/miniconda3/envs/Makeathon_python310_env/lib/python3.10/site-packages/pyext.py\", line 169, in _newf\n    return self._items[f.__name__][len(args)](*args, **kwargs)\n  File \"/home/maxge/miniconda3/envs/Makeathon_python310_env/lib/python3.10/site-packages/pyext.py\", line 279, in from_string\n    _exec(s, g)\n  File \"/home/maxge/miniconda3/envs/Makeathon_python310_env/lib/python3.10/site-packages/pyext.py\", line 97, in _exec\n    def _exec(m,g): exec(m,g)\n  File \"<string>\", line 16\n    ```python\n    ^\nSyntaxError: invalid syntax\n"
-        }
-    ]
-}
-{
-    "problem_id": 2767,
-    "question": "DNA sequencing data can be stored in many different formats. In this Kata, we will be looking at SAM formatting. It is a plain text file where every line (excluding the first header lines) contains data about a \"read\" from whatever sample the file comes from. Rather than focusing on the whole read, we will take two pieces of information: the cigar string and the nucleotide sequence.\n\nThe cigar string is composed of numbers and flags. It represents how the read aligns to what is known as a reference genome. A reference genome is an accepted standard for mapping the DNA. \n\nThe nucleotide sequence shows us what bases actually make up that section of DNA. They can be represented with the letters A, T, C, or G.\n\nExample Read: ('36M', 'ACTCTTCTTGCGAAAGTTCGGTTAGTAAAGGGGATG')\n\nThe M in the above cigar string stands for \"match\", and the 36 stands for the length of the nucleotide sequence. Since all 36 bases are given the 'M' distinction, we know they all matched the reference.\n\nExample Read: ('20M10S',  'ACTCTTCTTGCGAAAGTTCGGTTAGTAAAG')\n\nIn the above cigar string, only 20 have the \"M\" distinction, but the length of the actual string of nucleotides is 30. Therefore we know that read did not match the reference. (Don't worry about what the other letters mean. That will be covered in a later kata.)\n\nYour job for this kata is to create a function that determines whether a cigar string fully matches the reference and accounts for all bases. If it does fully match, return True. If the numbers in the string do not match the full length of the string, return 'Invalid cigar'. If it does not fully match, return False.\n\n*Note for C++: Return True, False, or Invalid cigar as strings*",
-    "generated_code": "def is_matched(read):\n    cigar, seq = read\n    total = 0\n    for i in range(len(cigar)):\n        if cigar[i].isdigit():\n            total = total * 10 + int(cigar[i])\n        else:\n            total *= int(cigar[i-1] if cigar[i-1].isdigit() else 1)\n    return total == len(seq) and 'M' in cigar or 'Invalid cigar' if total != len(seq) else False",
+    "problem_id": 3879,
+    "question": "You love coffee and want to know what beans you can afford to buy it.\n\nThe first argument to your search function will be a number which represents your budget.\n\nThe second argument will be an array of coffee bean prices.\n\nYour 'search' function should return the stores that sell coffee within your budget. \n\nThe search function should return a string of prices for the coffees beans you can afford. The prices in this string are to be sorted in ascending order.",
+    "generated_code": "\n\ndef search(budget,prices):\n    affordable_prices = sorted([price for price in prices if price <= budget])\n    return ' '.join(map(str, affordable_prices))",
     "test_cases": [
         {
             "input": [
+                14,
                 [
-                    "12S",
-                    "TGTTTCTCCAAG"
+                    13,
+                    15,
+                    14,
+                    14,
+                    15,
+                    13
                 ]
             ],
             "expected_output": [
-                false
+                "13,13,14,14"
             ],
             "generated_output": [
-                "Invalid cigar"
+                "13 13 14 14"
             ],
             "passed": false,
             "traceback": null
@@ -70,33 +68,48 @@
     ]
 }
 {
-    "problem_id": 4317,
-    "question": "L\u0435t's create function to play cards. Our rules:\n\nWe have the preloaded `deck`:\n\n```\ndeck = ['joker','2\u2663','3\u2663','4\u2663','5\u2663','6\u2663','7\u2663','8\u2663','9\u2663','10\u2663','J\u2663','Q\u2663','K\u2663','A\u2663',\n                '2\u2666','3\u2666','4\u2666','5\u2666','6\u2666','7\u2666','8\u2666','9\u2666','10\u2666','J\u2666','Q\u2666','K\u2666','A\u2666',\n                '2\u2665','3\u2665','4\u2665','5\u2665','6\u2665','7\u2665','8\u2665','9\u2665','10\u2665','J\u2665','Q\u2665','K\u2665','A\u2665',\n                '2\u2660','3\u2660','4\u2660','5\u2660','6\u2660','7\u2660','8\u2660','9\u2660','10\u2660','J\u2660','Q\u2660','K\u2660','A\u2660']\n```\n\nWe have 3 arguments:\n\n`card1` and `card2` - any card of our deck.\n\n`trump` - the main suit of four ('\u2663', '\u2666', '\u2665', '\u2660').\n\nIf both cards have the same suit, the big one wins.\n\nIf the cards have different suits (and no one has trump) return 'Let's play again.'\n\nIf one card has `trump` unlike another, wins the first one.\n\nIf both cards have `trump`, the big one wins.\n\nIf `card1` wins, return 'The first card won.' and vice versa.\n\nIf the cards are equal, return 'Someone cheats.'\n\nA few games:\n\n```\n('3\u2663', 'Q\u2663', '\u2666') -> 'The second card won.'\n\n('5\u2665', 'A\u2663', '\u2666') -> 'Let us play again.'\n\n('8\u2660', '8\u2660', '\u2663') -> 'Someone cheats.'\n\n('2\u2666', 'A\u2660', '\u2666') -> 'The first card won.'\n\n('joker', 'joker', '\u2666') -> 'Someone cheats.'\n\n```\nP.S. As a card you can also get the string 'joker' - it means this card always wins.",
-    "generated_code": "def card_game(card_1, card_2, trump):\n    suits = {'\u2663': 0, '\u2666': 1, '\u2665': 2, '\u2660': 3}\n    ranks = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14}\n    if card_1 == 'joker' or card_2 == 'joker':\n        if card_1 == 'joker' and card_2 == 'joker':\n            return 'Someone cheats.'\n        else:\n            return 'The first card won.' if card_1 == 'joker' else 'The second card won.'\n    if suits[card_1[-1]] == suits[card_2[-1]]:\n        if ranks[card_1[:-1]] == ranks[card_2[:-1]]:\n            return 'Someone cheats.'\n        else:\n            return 'The first card won.' if",
+    "problem_id": 2467,
+    "question": "Find all possible combinations of k numbers that add up to a number n, given that only numbers from 1 to 9 can be used and each combination should be a unique set of numbers.\n\nNote:\n\n\n       All numbers will be positive integers.\n       The solution set must not contain duplicate combinations.\n\n\nExample 1:\n\n\nInput: k = 3, n = 7\nOutput: [[1,2,4]]\n\n\nExample 2:\n\n\nInput: k = 3, n = 9\nOutput: [[1,2,6], [1,3,5], [2,3,4]]",
+    "generated_code": "\n\ndef combinationSum3(self, k: int, n: int) -> List[List[int]]:\n    def backtrack(start, path, target):\n        if len(path) == k:\n            if target == 0:\n                result.append(path)\n            return\n        for i in range(start, 10):\n            if i <= target:\n                backtrack(i + 1, path + [i], target - i)\n\n    result = []\n    backtrack(1, [], n)\n    return result",
     "test_cases": [
         {
-            "input": null,
-            "expected_output": null,
+            "input": [
+                9,
+                45
+            ],
+            "expected_output": [
+                [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9
+                ]
+            ],
             "generated_output": null,
             "passed": false,
-            "traceback": "Traceback (most recent call last):\n  File \"/home/maxge/Coding/Makeathon TUM.ai x Aleph Alpha/team5/utilities/testing_util.py\", line 185, in run_test\n    tmp_sol = RuntimeModule.from_string(\"tmp_sol\", \"\", sol)\n  File \"/home/maxge/miniconda3/envs/Makeathon_python310_env/lib/python3.10/site-packages/pyext.py\", line 169, in _newf\n    return self._items[f.__name__][len(args)](*args, **kwargs)\n  File \"/home/maxge/miniconda3/envs/Makeathon_python310_env/lib/python3.10/site-packages/pyext.py\", line 279, in from_string\n    _exec(s, g)\n  File \"/home/maxge/miniconda3/envs/Makeathon_python310_env/lib/python3.10/site-packages/pyext.py\", line 97, in _exec\n    def _exec(m,g): exec(m,g)\n  File \"<string>\", line 28\n    return 'The first card won.' if\n                                   ^\nSyntaxError: invalid syntax\n"
+            "traceback": "Traceback (most recent call last):\n  File \"/Users/antoniborys/Library/CloudStorage/OneDrive-Personal/TUM/Master/Extracurr/24.11 Makeathon/Cloned repo/team5/utilities/testing_util.py\", line 296, in run_test\n    output = method(*inputs)\nTypeError: combinationSum3() missing 1 required positional argument: 'n'\n"
         }
     ]
 }
 {
-    "problem_id": 3230,
-    "question": "You're a programmer in a SEO company. The SEO specialist of your company gets the list of all project keywords everyday, then he looks for the longest keys to analyze them.\n\nYou will get the list with keywords and must write a simple function that returns the biggest search keywords and sorts them in lexicographical order.\n\nFor instance you might get:\n```python\n'key1', 'key2', 'key3', 'key n', 'bigkey2', 'bigkey1'\n```\n\nAnd your function should return:\n```python\n\"'bigkey1', 'bigkey2'\"\n```\n\nDon't forget to rate this kata! Thanks :)",
-    "generated_code": "def the_biggest_search_keys(*keys):\n    max_len = max(len(key) for key in keys)\n    return ', '.join(sorted([key for key in keys if len(key) == max_len]))",
+    "problem_id": 3921,
+    "question": "Correct this code so that it takes one argument, `x`, and returns \"`x` is more than zero\" if `x` is positive (and nonzero), and otherwise, returns \"`x` is equal to or less than zero.\" In both cases, replace `x` with the actual value of `x`.",
+    "generated_code": "\n\ndef corrections(x):\n    if x > 0:\n        return f\"{x} is more than zero\"\n    else:\n        return f\"{x} is equal to or less than zero\"",
     "test_cases": [
         {
             "input": [
-                "pippi"
+                0
             ],
             "expected_output": [
-                "'pippi'"
+                "0 is equal to or less than zero."
             ],
             "generated_output": [
-                "pippi"
+                "0 is equal to or less than zero"
             ],
             "passed": false,
             "traceback": null
@@ -106,7 +119,7 @@
 {
     "problem_id": 4627,
     "question": "Simply find the closest value to zero from the list. Notice that there are negatives in the list.\n\nList is always not empty and contains only integers. Return ```None``` if it is not possible to define only one of such values. And of course, we are expecting 0 as closest value to zero.\n\nExamples:\n```code\n[2, 4, -1, -3]  => -1\n[5, 2, -2]      => None\n[5, 2, 2]       => 2\n[13, 0, -6]     => 0\n```",
-    "generated_code": "def closest(lst):\n    min_abs = min(abs(x) for x in lst)\n    closest_nums = [x for x in lst if abs(x) == min_abs]\n    return None if len(closest_nums) > 1 else closest_nums[0]",
+    "generated_code": "\n\ndef closest(lst):\n    min_abs = min(abs(x) for x in lst)\n    closest_values = [x for x in lst if abs(x) == min_abs]\n    return None if len(closest_values) > 1 else closest_values[0]",
     "test_cases": [
         {
             "input": [
@@ -155,37 +168,22 @@
     ]
 }
 {
-    "problem_id": 4532,
-    "question": "Basic regex tasks. Write a function that takes in a numeric code of any length. The function should check if the code begins with 1, 2, or 3 and return `true` if so. Return `false` otherwise. \n\nYou can assume the input will always be a number.",
-    "generated_code": "def validate_code(code):\n    return code[0] in ['1', '2', '3']",
+    "problem_id": 2767,
+    "question": "DNA sequencing data can be stored in many different formats. In this Kata, we will be looking at SAM formatting. It is a plain text file where every line (excluding the first header lines) contains data about a \"read\" from whatever sample the file comes from. Rather than focusing on the whole read, we will take two pieces of information: the cigar string and the nucleotide sequence.\n\nThe cigar string is composed of numbers and flags. It represents how the read aligns to what is known as a reference genome. A reference genome is an accepted standard for mapping the DNA. \n\nThe nucleotide sequence shows us what bases actually make up that section of DNA. They can be represented with the letters A, T, C, or G.\n\nExample Read: ('36M', 'ACTCTTCTTGCGAAAGTTCGGTTAGTAAAGGGGATG')\n\nThe M in the above cigar string stands for \"match\", and the 36 stands for the length of the nucleotide sequence. Since all 36 bases are given the 'M' distinction, we know they all matched the reference.\n\nExample Read: ('20M10S',  'ACTCTTCTTGCGAAAGTTCGGTTAGTAAAG')\n\nIn the above cigar string, only 20 have the \"M\" distinction, but the length of the actual string of nucleotides is 30. Therefore we know that read did not match the reference. (Don't worry about what the other letters mean. That will be covered in a later kata.)\n\nYour job for this kata is to create a function that determines whether a cigar string fully matches the reference and accounts for all bases. If it does fully match, return True. If the numbers in the string do not match the full length of the string, return 'Invalid cigar'. If it does not fully match, return False.\n\n*Note for C++: Return True, False, or Invalid cigar as strings*",
+    "generated_code": "\n\ndef is_matched(read):\n    cigar, seq = read\n    total = 0\n    num = ''\n    for char in cigar:\n        if char.isdigit():\n            num += char\n        else:\n            total += int(num)\n            num = ''\n    if total != len(seq):\n        return 'Invalid cigar' if total > len(seq) else False\n    return True",
     "test_cases": [
         {
             "input": [
-                9453
+                [
+                    "12S",
+                    "TGTTTCTCCAAG"
+                ]
             ],
             "expected_output": [
                 false
             ],
-            "generated_output": null,
-            "passed": false,
-            "traceback": "Traceback (most recent call last):\n  File \"/home/maxge/Coding/Makeathon TUM.ai x Aleph Alpha/team5/utilities/testing_util.py\", line 296, in run_test\n    output = method(*inputs)\n  File \"<string>\", line 17, in validate_code\nTypeError: 'int' object is not subscriptable\n"
-        }
-    ]
-}
-{
-    "problem_id": 4566,
-    "question": "You need count how many valleys you will pass.\n\nStart is always from zero level.\n\nEvery time you go down below 0 level counts as an entry of a valley, and as you go up to 0 level from valley counts as an exit of a valley.\n\nOne passed valley is equal one entry and one exit of a valley.\n```\ns='FUFFDDFDUDFUFUF'\nU=UP\nF=FORWARD\nD=DOWN\n```\n\nTo represent string above\n```\n(level 1)  __\n(level 0)_/  \\         _(exit we are again on level 0)\n(entry-1)     \\_     _/\n(level-2)       \\/\\_/\n```\nSo here we passed one valley",
-    "generated_code": "def counting_valleys(s):\n    level = 0\n    valley = 0\n    for i in s:\n        if i == 'U':\n            level += 1\n        else:\n            level -= 1\n        if level == 0 and i == 'U':\n            valley += 1\n    return valley",
-    "test_cases": [
-        {
-            "input": [
-                "UFFDDFDUDFUFUUFFDDFDUDFUFUUFFDDFDUDFUFUUFFDDFDUDFUFUUFFDDFDUDFUFUUFFDDFDUDFUFU"
-            ],
-            "expected_output": [
-                6
-            ],
             "generated_output": [
-                0
+                true
             ],
             "passed": false,
             "traceback": null
@@ -193,37 +191,78 @@
     ]
 }
 {
-    "problem_id": 3927,
-    "question": "Some numbers have funny properties. For example:\n\n> 89 --> 8\u00b9 + 9\u00b2 = 89 * 1\n\n> 695 --> 6\u00b2 + 9\u00b3 + 5\u2074= 1390 = 695 * 2\n\n> 46288 --> 4\u00b3 + 6\u2074+ 2\u2075 + 8\u2076 + 8\u2077 = 2360688 = 46288 * 51\n\nGiven a positive integer n written as abcd... (a, b, c, d... being digits) and a positive integer p \n- we want to find a positive integer k, if it exists, such as the sum of the digits of n taken to the successive powers of p is equal to k * n. \n\nIn other words:\n\n> Is there an integer k such as : (a ^ p + b ^ (p+1) + c ^(p+2) + d ^ (p+3) + ...) = n * k\n\nIf it is the case we will return k, if not return -1.\n\n**Note**: n and p will always be given as strictly positive integers.\n\n```python\ndig_pow(89, 1) should return 1 since 8\u00b9 + 9\u00b2 = 89 = 89 * 1\ndig_pow(92, 1) should return -1 since there is no k such as 9\u00b9 + 2\u00b2 equals 92 * k\ndig_pow(695, 2) should return 2 since 6\u00b2 + 9\u00b3 + 5\u2074= 1390 = 695 * 2\ndig_pow(46288, 3) should return 51 since 4\u00b3 + 6\u2074+ 2\u2075 + 8\u2076 + 8\u2077 = 2360688 = 46288 * 51\n```",
-    "generated_code": "def dig_pow(n, p):\n    n = str(n)\n    result = sum(int(digit) ** (p + i) for i, digit in enumerate(n))\n    return result // int(n) if result % int(n) == 0 else -1\n```",
+    "problem_id": 3925,
+    "question": "# Task\n\nJohn and Alice have an appointment today. \n\nIn the morning, John starts from (`0,0`) and goes to the place (`a,b`) where he is dating. Unfortunately, John had no sense of direction at all, so he moved 1 step in a random direction(up, down, left or right) each time. For example, if John at (x,y), next step he may move to `(x+1,y), (x-1,y),(x,y+1) or (x,y-1)`. \n\nObviously, when he arrived at the destination, it was already too late and Alice had already left. It's a sadly story :(\n\nThe second day, Alice asked John why he didn't go to the dating place. John said he took `s` steps to his date yesterday.\n\nAlice wants to know whether John is lying. Please help Alice to judge.\n\nGiven two coordinates `a, b` and the step `s`, return `true` if John tells the truth, `false` otherwise.\n\n# Input/Output\n\n\n`[input]` integer `a`\n\nThe x-coordinates of the dating site.\n\n`-10^7 <= a <= 10^7`\n\n`[input]` integer `b`\n\nThe y-coordinates of the dating site.\n\n`-10^7 <= b <= 10^7`\n\n`[input]` integer `s`\n\nA positive integer.  The steps John using.\n\n`0 < s <= 10^9`\n\n`[output]` a boolean value\n\nreturn `true` if John tells the truth, `false` otherwise.\n\n# Example\n\nFor `a = 3, b = 3, s = 6`, the output should be `true`.\n\nA possible path is: \n\n`(0,0) -> (0,1) -> (0,2) -> (0,3) -> (1,3) -> (2,3) -> (3,3)`\n\nFor `a = 3, b = 3, s = 8`, the output should be `true`.\n\nA possible path is: \n\n`(0,0) -> (0,1) -> (1,1) -> (1,2) -> (2,2) -> (2,1) -> (3,1) -> (3,2) -> (3,3)`\n\nFor `a = 4, b = 5, s = 10`, the output should be `false`.\n\nJohn can't reach coordinates (a, b) using 10 steps, he's lying ;-)",
+    "generated_code": "\n\nreturn s >= abs(a) + abs(b) and (s - abs(a) - abs(b)) % 2 == 0",
     "test_cases": [
         {
             "input": null,
             "expected_output": null,
             "generated_output": null,
             "passed": false,
-            "traceback": "Traceback (most recent call last):\n  File \"/home/maxge/Coding/Makeathon TUM.ai x Aleph Alpha/team5/utilities/testing_util.py\", line 185, in run_test\n    tmp_sol = RuntimeModule.from_string(\"tmp_sol\", \"\", sol)\n  File \"/home/maxge/miniconda3/envs/Makeathon_python310_env/lib/python3.10/site-packages/pyext.py\", line 169, in _newf\n    return self._items[f.__name__][len(args)](*args, **kwargs)\n  File \"/home/maxge/miniconda3/envs/Makeathon_python310_env/lib/python3.10/site-packages/pyext.py\", line 279, in from_string\n    _exec(s, g)\n  File \"/home/maxge/miniconda3/envs/Makeathon_python310_env/lib/python3.10/site-packages/pyext.py\", line 97, in _exec\n    def _exec(m,g): exec(m,g)\n  File \"<string>\", line 20\n    ```\n    ^\nSyntaxError: invalid syntax\n"
+            "traceback": "Traceback (most recent call last):\n  File \"/Users/antoniborys/Library/CloudStorage/OneDrive-Personal/TUM/Master/Extracurr/24.11 Makeathon/Cloned repo/team5/utilities/testing_util.py\", line 185, in run_test\n    tmp_sol = RuntimeModule.from_string(\"tmp_sol\", \"\", sol)\n  File \"/opt/homebrew/lib/python3.10/site-packages/pyext.py\", line 169, in _newf\n    return self._items[f.__name__][len(args)](*args, **kwargs)\n  File \"/opt/homebrew/lib/python3.10/site-packages/pyext.py\", line 279, in from_string\n    _exec(s, g)\n  File \"/opt/homebrew/lib/python3.10/site-packages/pyext.py\", line 97, in _exec\n    def _exec(m,g): exec(m,g)\n  File \"<string>\", line 18\nSyntaxError: 'return' outside function\n"
+        }
+    ]
+}
+{
+    "problem_id": 3230,
+    "question": "You're a programmer in a SEO company. The SEO specialist of your company gets the list of all project keywords everyday, then he looks for the longest keys to analyze them.\n\nYou will get the list with keywords and must write a simple function that returns the biggest search keywords and sorts them in lexicographical order.\n\nFor instance you might get:\n```python\n'key1', 'key2', 'key3', 'key n', 'bigkey2', 'bigkey1'\n```\n\nAnd your function should return:\n```python\n\"'bigkey1', 'bigkey2'\"\n```\n\nDon't forget to rate this kata! Thanks :)",
+    "generated_code": "\n\ndef the_biggest_search_keys(*keys):\n    max_len = max(len(key) for key in keys)\n    return ', '.join(sorted([key for key in keys if len(key) == max_len]))",
+    "test_cases": [
+        {
+            "input": [
+                "pippi"
+            ],
+            "expected_output": [
+                "'pippi'"
+            ],
+            "generated_output": [
+                "pippi"
+            ],
+            "passed": false,
+            "traceback": null
         }
     ]
 }
 {
     "problem_id": 2835,
     "question": "Consider a sequence made up of the consecutive prime numbers. This infinite sequence would start with: \n```python\n\"2357111317192329313741434753596167717379...\"\n```\n\nYou will be given two numbers: `a` and `b`, and your task will be to return `b` elements starting from index `a` in this sequence.\n```\nFor example:\nsolve(10,5) == `19232` Because these are 5 elements from index 10 in the sequence.\n```\n\nTests go up to about index `20000`.\n\nMore examples in test cases. Good luck!\n\nPlease also try [Simple time difference](https://www.codewars.com/kata/5b76a34ff71e5de9db0000f2)",
-    "generated_code": "```python\ndef solve(a, b):\n    def is_prime(n):\n        if n < 2:\n            return False\n        for i in range(2, int(n**0.5) + 1):\n            if n % i == 0:\n                return False\n        return True\n\n    primes = []\n    i = 2\n    while len(primes) < a + b:\n        if is_prime(i):\n            primes.append(str(i))\n        i += 1\n    return ''.join(primes[a:a+b])\n```\nThis code defines a helper function `is_prime` to check if a number is prime, then generates prime numbers until it has enough to cover the range `[a, a+b)`. It then returns the corresponding substring of the concatenated prime numbers.",
+    "generated_code": "\n\ndef solve(a, b):\n    def is_prime(n):\n        if n < 2:\n            return False\n        for i in range(2, int(n**0.5) + 1):\n            if n % i == 0:\n                return False\n        return True\n\n    primes = []\n    num = 2\n    while len(primes) < a + b:\n        if is_prime(num):\n            primes.append(str(num))\n        num += 1\n    return ''.join(primes[a:a+b])",
+    "test_cases": [
+        {
+            "input": [
+                20000,
+                5
+            ],
+            "expected_output": [
+                "09334"
+            ],
+            "generated_output": [
+                "224743224759224771224797224813"
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
+    "problem_id": 3286,
+    "question": "### The Story:\nBob is working as a bus driver. However, he has become extremely popular amongst the city's residents. With so many passengers wanting to get aboard his bus, he sometimes has to face the problem of not enough space left on the bus! He wants you to write a simple program telling him if he will be able to fit all the passengers.\n\n### Task Overview:\n\nYou have to write a function that accepts three parameters: \n* `cap` is the amount of people the bus can hold excluding the driver.\n* `on` is the number of people on the bus.\n* `wait` is the number of people waiting to get on to the bus. \n\nIf there is enough space, return 0, and if there isn't, return the number of passengers he can't take.\n\n### Usage Examples:\n\n```python\nenough(10, 5, 5)\n0 # He can fit all 5 passengers\nenough(100, 60, 50)\n10 # He can't fit 10 out of 50 waiting\n```\n\n```if:csharp\nDocumentation:\nKata.Enough Method (Int32, Int32, Int32)\n\nReturns the number of passengers the bus cannot fit, or 0 if the bus can fit every passenger.\n\nSyntax\n\n\npublic\nstatic\nint Enough(\nint cap,\n  \u00a0\u00a0int on,\nint wait\n  \u00a0\u00a0)\n  \n\n\n\nParameters\n\ncap\n\nType: System.Int32\nThe amount of people that can fit on the bus excluding the driver.\n\non\n\nType: System.Int32\nThe amount of people on the bus excluding the driver.\n\nwait\n\nType: System.Int32\nThe amount of people waiting to enter the bus.\n\nReturn Value\n\nType: System.Int32\n  An integer representing how many passengers cannot fit on the bus, or 0 if every passenger can fit on the bus.\n\n```",
+    "generated_code": "\n\nreturn max(wait + on - cap, 0)",
     "test_cases": [
         {
             "input": null,
             "expected_output": null,
             "generated_output": null,
             "passed": false,
-            "traceback": "Traceback (most recent call last):\n  File \"/home/maxge/Coding/Makeathon TUM.ai x Aleph Alpha/team5/utilities/testing_util.py\", line 185, in run_test\n    tmp_sol = RuntimeModule.from_string(\"tmp_sol\", \"\", sol)\n  File \"/home/maxge/miniconda3/envs/Makeathon_python310_env/lib/python3.10/site-packages/pyext.py\", line 169, in _newf\n    return self._items[f.__name__][len(args)](*args, **kwargs)\n  File \"/home/maxge/miniconda3/envs/Makeathon_python310_env/lib/python3.10/site-packages/pyext.py\", line 279, in from_string\n    _exec(s, g)\n  File \"/home/maxge/miniconda3/envs/Makeathon_python310_env/lib/python3.10/site-packages/pyext.py\", line 97, in _exec\n    def _exec(m,g): exec(m,g)\n  File \"<string>\", line 34\n    This code defines a helper function `is_prime` to check if a number is prime, then generates prime numbers until it has enough to cover the range `[a, a+b)`. It then returns the corresponding substring of the concatenated prime numbers.\n                                                                                                                                                              ^\nSyntaxError: closing parenthesis ')' does not match opening parenthesis '['\n"
+            "traceback": "Traceback (most recent call last):\n  File \"/Users/antoniborys/Library/CloudStorage/OneDrive-Personal/TUM/Master/Extracurr/24.11 Makeathon/Cloned repo/team5/utilities/testing_util.py\", line 185, in run_test\n    tmp_sol = RuntimeModule.from_string(\"tmp_sol\", \"\", sol)\n  File \"/opt/homebrew/lib/python3.10/site-packages/pyext.py\", line 169, in _newf\n    return self._items[f.__name__][len(args)](*args, **kwargs)\n  File \"/opt/homebrew/lib/python3.10/site-packages/pyext.py\", line 279, in from_string\n    _exec(s, g)\n  File \"/opt/homebrew/lib/python3.10/site-packages/pyext.py\", line 97, in _exec\n    def _exec(m,g): exec(m,g)\n  File \"<string>\", line 18\nSyntaxError: 'return' outside function\n"
         }
     ]
 }
 {
     "problem_id": 3309,
     "question": "## Overview\nResistors are electrical components marked with colorful stripes/bands to indicate both their resistance value in ohms and how tight a tolerance that value has. If you did my Resistor Color Codes kata, you wrote a function which took a string containing a resistor's band colors, and returned a string identifying the resistor's ohms and tolerance values.\n\n\nWell, now you need that in reverse: The previous owner of your \"Beyond-Ultimate Raspberry Pi Starter Kit\" (as featured in my Fizz Buzz Cuckoo Clock kata) had emptied all the tiny labeled zip-lock bags of components into the box, so that for each resistor you need for a project, instead of looking for text on a label, you need to find one with the sequence of band colors that matches the ohms value you need.\n\n## The resistor color codes\nYou can see this Wikipedia page for a colorful chart, but the basic resistor color codes are:\n\n0: black, 1: brown, 2: red, 3: orange, 4: yellow, 5: green, 6: blue, 7: violet, 8: gray, 9: white\n\nAll resistors have at least three bands, with the first and second bands indicating the first two digits of the ohms value, and the third indicating the power of ten to multiply them by, for example a resistor with a value of 47 ohms, which equals 47 * 10^0 ohms, would have the three bands \"yellow violet black\".\n\nMost resistors also have a fourth band indicating tolerance -- in an electronics kit like yours, the tolerance will always be 5%, which is indicated by a gold band. So in your kit, the 47-ohm resistor in the above paragraph would have the four bands \"yellow violet black gold\".\n\n## Your mission\nYour function will receive a string containing the ohms value you need, followed by a space and the word \"ohms\" (to avoid Codewars unicode headaches I'm just using the word instead of the ohms unicode symbol). The way an ohms value is formatted depends on the magnitude of the value:\n\n* For resistors less than 1000 ohms, the ohms value is just formatted as the plain number. For example, with the 47-ohm resistor above, your function would receive the string `\"47 ohms\"`, and return the string `\"yellow violet black gold\".\n\n* For resistors greater than or equal to 1000 ohms, but less than 1000000 ohms, the ohms value is divided by 1000, and has a lower-case \"k\" after it. For example, if your function received the string `\"4.7k ohms\"`, it would need to return the string `\"yellow violet red gold\"`.\n\n* For resistors of 1000000 ohms or greater, the ohms value is divided by 1000000, and has an upper-case \"M\" after it. For example, if your function received the string `\"1M ohms\"`, it would need to return the string `\"brown black green gold\"`. \n\nTest case resistor values will all be between 10 ohms and 990M ohms.\n\n## More examples, featuring some common resistor values from your kit\n```\n\"10 ohms\"        \"brown black black gold\"\n\"100 ohms\"       \"brown black brown gold\"\n\"220 ohms\"       \"red red brown gold\"\n\"330 ohms\"       \"orange orange brown gold\"\n\"470 ohms\"       \"yellow violet brown gold\"\n\"680 ohms\"       \"blue gray brown gold\"\n\"1k ohms\"        \"brown black red gold\"\n\"10k ohms\"       \"brown black orange gold\"\n\"22k ohms\"       \"red red orange gold\"\n\"47k ohms\"       \"yellow violet orange gold\"\n\"100k ohms\"      \"brown black yellow gold\"\n\"330k ohms\"      \"orange orange yellow gold\"\n\"2M ohms\"        \"red black green gold\"\n```\n\nHave fun!",
-    "generated_code": "def encode_resistor_colors(ohms_string):\n    colors = [\"black\", \"brown\", \"red\", \"orange\", \"yellow\", \"green\", \"blue\", \"violet\", \"gray\", \"white\"]\n    ohms, _ = ohms_string.split()\n    if ohms.endswith(\"k\"):\n        ohms = float(ohms[:-1]) * 1000\n    elif ohms.endswith(\"M\"):\n        ohms = float(ohms[:-1]) * 1000000\n    ohms = int(ohms)\n    first_digit = ohms // 10\n    second_digit = ohms % 10\n    multiplier = 0\n    while ohms >= 10:\n        ohms /= 10\n        multiplier += 1\n    return f\"{colors[first_digit]} {colors[second_digit]} {colors[multiplier]} gold\"",
+    "generated_code": "\n\ndef encode_resistor_colors(ohms_string):\n    colors = [\"black\", \"brown\", \"red\", \"orange\", \"yellow\", \"green\", \"blue\", \"violet\", \"gray\", \"white\"]\n    ohms, _ = ohms_string.split()\n    if ohms.endswith(\"k\"):\n        ohms = float(ohms[:-1]) * 1000\n    elif ohms.endswith(\"M\"):\n        ohms = float(ohms[:-1]) * 1000000\n    else:\n        ohms = float(ohms)\n    ohms = int(ohms)\n    first_digit = ohms // 10\n    second_digit = ohms % 10\n    multiplier = 0\n    while ohms >= 10:\n        ohms /= 10\n        multiplier += 1\n    return f\"{colors[first_digit]} {colors[second_digit]} {colors[multiplier]} gold\"",
     "test_cases": [
         {
             "input": [
@@ -234,7 +273,494 @@
             ],
             "generated_output": null,
             "passed": false,
-            "traceback": "Traceback (most recent call last):\n  File \"/home/maxge/Coding/Makeathon TUM.ai x Aleph Alpha/team5/utilities/testing_util.py\", line 296, in run_test\n    output = method(*inputs)\n  File \"<string>\", line 30, in encode_resistor_colors\nIndexError: list index out of range\n"
+            "traceback": "Traceback (most recent call last):\n  File \"/Users/antoniborys/Library/CloudStorage/OneDrive-Personal/TUM/Master/Extracurr/24.11 Makeathon/Cloned repo/team5/utilities/testing_util.py\", line 296, in run_test\n    output = method(*inputs)\n  File \"<string>\", line 34, in encode_resistor_colors\nIndexError: list index out of range\n"
+        }
+    ]
+}
+{
+    "problem_id": 2828,
+    "question": "A [Power Law](https://en.wikipedia.org/wiki/Power_law) distribution occurs whenever \"a relative change in one quantity results in a proportional relative change in the other quantity.\" For example, if *y* = 120 when *x* = 1 and *y* = 60 when *x* = 2 (i.e. *y* halves whenever *x* doubles) then when *x* = 4, *y* = 30 and when *x* = 8, *y* = 15.\n\n\nTherefore, if I give you any pair of co-ordinates (x1,y1) and (x2,y2) in a power law distribution, you can plot the entire rest of the distribution and tell me the value of *y* for any other value of *x*. \n\nGiven a pair of co-ordinates (x1,y1) and (x2,y2) and another x co-ordinate *x3*, return the value of *y3*\n\n```\npowerLaw(x1y1, x2y2, x3)\ne.g. powerLaw([1,120], [2,60], 4)\n- when x = 1, y = 120\n- when x = 2, y = 60\n- therefore whenever x doubles, y halves\n- therefore when x = 4, y = 60 * 0.5\n- therfore solution = 30\n```\n\n(x1,y1) and (x2,y2) will be given as arrays. Answer should be to the nearest integer, but random tests will give you leeway of 1% of the reference solution to account for possible discrepancies from different methods.",
+    "generated_code": "\n\ndef power_law(x1y1, x2y2, x3):\n    x1, y1 = x1y1\n    x2, y2 = x2y2\n    ratio = y2 / y1\n    power = math.log(ratio) / math.log(x2 / x1)\n    return round(y1 * (x3 / x1) ** power)",
+    "test_cases": [
+        {
+            "input": [
+                [
+                    9,
+                    1
+                ],
+                [
+                    9,
+                    1
+                ],
+                9
+            ],
+            "expected_output": [
+                1
+            ],
+            "generated_output": null,
+            "passed": false,
+            "traceback": "Traceback (most recent call last):\n  File \"/Users/antoniborys/Library/CloudStorage/OneDrive-Personal/TUM/Master/Extracurr/24.11 Makeathon/Cloned repo/team5/utilities/testing_util.py\", line 296, in run_test\n    output = method(*inputs)\n  File \"<string>\", line 22, in power_law\nZeroDivisionError: float division by zero\n"
+        }
+    ]
+}
+{
+    "problem_id": 4274,
+    "question": "Your task is to write a function named `do_math` that receives a single argument. \nThis argument is a string that contains multiple whitespace delimited numbers. Each number has a single alphabet letter somewhere within it.\n```\nExample : \"24z6 1x23 y369 89a 900b\"\n```\nAs shown above, this alphabet letter can appear anywhere within the number. You have to extract the letters and sort the numbers according to their corresponding letters. \n```\nExample : \"24z6 1x23 y369 89a 900b\" will become 89 900 123 369 246 (ordered according to the alphabet letter)\n```\nHere comes the difficult part, now you have to do a series of computations on the numbers you have extracted.\n\n* The sequence of computations are `+ - * /`. Basic math rules do **NOT** apply, you have to do each computation in exactly this order.\n* This has to work for any size of numbers sent in (after division, go back to addition, etc).\n* In the case of duplicate alphabet letters, you have to arrange them according to the number that appeared first in the input string.\n* Remember to also round the final answer to the nearest integer.\n\n```\nExamples :\n\"24z6 1x23 y369 89a 900b\" = 89 + 900 - 123 * 369 / 246 = 1299\n\"24z6 1z23 y369 89z 900b\" = 900 + 369 - 246 * 123 / 89 = 1414\n\"10a 90x 14b 78u 45a 7b 34y\" = 10 + 45 - 14 * 7 / 78 + 90 - 34 = 60\n``` \nGood luck and may the CODE be with you!",
+    "generated_code": "\n\ndef do_math(s) :\n    nums = s.split()\n    num_dict = {}\n    for num in nums:\n        for char in num:\n            if char.isalpha():\n                if char in num_dict:\n                    num_dict[char].append(int(''.join(filter(str.isdigit, num))))\n                else:\n                    num_dict[char] = [int(''.join(filter(str.isdigit, num)))]\n                break\n    sorted_chars = sorted(num_dict.keys())\n    result = 0\n    ops = ['+', '-', '*', '/']\n    op_index = 0\n    for char in sorted_chars:\n        for num in num_dict[char]:\n            if op_index == 0:\n                result += num\n            elif op_index == 1:\n                result -= num\n            elif op_index == 2:\n                result *= num\n            elif op_index == 3:\n                result /= num\n            op_index = (op_index + 1) % 4\n    return round(result)",
+    "test_cases": [
+        {
+            "input": [
+                "1z 2t 3q 5x 6u 8a 7b"
+            ],
+            "expected_output": [
+                8
+            ],
+            "generated_output": [
+                2
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
+    "problem_id": 2840,
+    "question": "## Task\n An `ATM` ran out of 10 dollar bills and only has `100, 50 and 20` dollar bills.\n \n Given an amount between `40 and 10000 dollars (inclusive)` and assuming that the ATM wants to use as few bills as possible, determinate the minimal number of 100, 50 and 20 dollar bills the ATM needs to dispense (in that order).\n\n## Example\n\n For `n = 250`, the result should be `[2, 1, 0]`.\n \n For `n = 260`, the result should be `[2, 0, 3]`.\n \n For `n = 370`, the result should be `[3, 1, 1]`.\n\n## Input/Output\n\n - `[input]` integer `n`\n  Amount of money to withdraw. Assume that `n` is always exchangeable with `[100, 50, 20]` bills.\n - `[output]` integer array\n  An array of number of `100, 50 and 20` dollar bills needed to complete the withdraw (in that order).",
+    "generated_code": "\n\ndef withdraw(n):\n    hundreds = n // 100\n    n %= 100\n    fifties = n // 50\n    n %= 50\n    twenties = n // 20\n    return [hundreds, fifties, twenties]",
+    "test_cases": [
+        {
+            "input": [
+                60
+            ],
+            "expected_output": [
+                [
+                    0,
+                    0,
+                    3
+                ]
+            ],
+            "generated_output": [
+                [
+                    0,
+                    1,
+                    0
+                ]
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
+    "problem_id": 3822,
+    "question": "For a given array whose element values are randomly picked from single-digit integers `0` to `9`, return an array with the same digit order but all `0`'s paired. Paring two `0`'s generates one `0` at the location of the first.\n\nEx:\n```python\npair_zeros([0, 1, 0, 2])\n# paired: ^-----^ cull second zero\n       == [0, 1, 2];\n#   kept: ^\n\npair_zeros([0, 1, 0, 0])\n# paired: ^-----^\n       == [0, 1,    0];\n#   kept: ^\n\npair_zeros([1, 0, 7, 0, 1])\n# paired:    ^-----^\n       == [1, 0, 7,    1];\n#   kept:    ^\n\npair_zeros([0, 1, 7, 0, 2, 2, 0, 0, 1, 0])\n# paired: ^--------^ \n#        [0, 1, 7,    2, 2, 0, 0, 1, 0]\n#   kept: ^         paired: ^--^\n       == [0, 1, 7,    2, 2, 0,    1, 0];\n#   kept:                   ^\n```\n\nHere are the 2 important rules:\n\n1. Pairing happens from left to right in the array. However, for each pairing, the \"second\" `0` will always be paired towards the first (right to left)\n2. `0`'s generated by pairing can NOT be paired again",
+    "generated_code": "\n\ndef pair_zeros(arr):\n    write = 0\n    for read in range(len(arr)):\n        if arr[read] == 0 and read + 1 < len(arr) and arr[read + 1] == 0:\n            arr[write] = 0\n            write += 1\n            read += 1\n        elif arr[read] != 0:\n            arr[write] = arr[read]\n            write += 1\n    return arr[:write]",
+    "test_cases": [
+        {
+            "input": [
+                [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            ],
+            "expected_output": [
+                [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            ],
+            "generated_output": [
+                [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
+    "problem_id": 4090,
+    "question": "Farmer Bob have a big farm, where he growths chickens, rabbits and cows. It is very difficult to count the number of animals for each type manually, so he diceded to buy a system to do it. But he bought a cheap system that can count only total number of heads, total number of legs and total number of horns of animals on the farm.\nHelp Bob to figure out how many chickens, rabbits and cows does he have?\n\nAll chickens have 2 legs, 1 head and no horns; all rabbits have 4 legs, 1 head and no horns; all cows have 4 legs, 1 head and 2 horns.\n\nYour task is to write a function \n```Python\nget_animals_count(legs_number, heads_number, horns_number)\n```\n```Csharp\nDictionary get_animals_count(int legs_number, int heads_number, int horns_number)\n```\n, which returns a dictionary \n```python\n{\"rabbits\" : rabbits_count, \"chickens\" : chickens_count, \"cows\" : cows_count}\n``` \n```Csharp\nnew Dictionary(){{\"rabbits\", rabbits_count},{\"chickens\", chickens_count},{\"cows\", cows_count}}\n```\n\nParameters `legs_number, heads_number, horns_number` are integer, all tests have valid input.\n\nExample:\n\n```python\nget_animals_count(34, 11, 6); # Should return {\"rabbits\" : 3, \"chickens\" : 5, \"cows\" : 3}\nget_animals_count(154, 42, 10); # Should return {\"rabbits\" : 30, \"chickens\" : 7, \"cows\" : 5}\n```\n\n```Csharp\nget_animals_count(34, 11, 6); //Should return  Dictionary(){{\"rabbits\", 3},{\"chickens\", 5},{\"cows\", 3}}\nget_animals_count(154, 42, 10); //Should return Dictionary(){{\"rabbits\", 30},{\"chickens\", 7},{\"cows\", 5}}\n```",
+    "generated_code": "\n\ndef get_animals_count(legs, heads, horns):\n    cows = horns // 2\n    chickens = heads - cows - (legs - 4 * cows) // 4\n    rabbits = (legs - 4 * cows - 2 * chickens) // 4\n    return {\"rabbits\": rabbits, \"chickens\": chickens, \"cows\": cows}",
+    "test_cases": [
+        {
+            "input": [
+                56,
+                17,
+                0
+            ],
+            "expected_output": [
+                {
+                    "rabbits": 11,
+                    "chickens": 6,
+                    "cows": 0
+                }
+            ],
+            "generated_output": [
+                {
+                    "rabbits": 12,
+                    "chickens": 3,
+                    "cows": 0
+                }
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
+    "problem_id": 2669,
+    "question": "Consider the following series:\n\n`1, 2, 4, 8, 16, 22, 26, 38, 62, 74, 102, 104, 108, 116, 122`\n\nIt is generated as follows:\n\n* For single digit integers, add the number to itself to get the next element.\n* For other integers, multiply all the non-zero digits and add the result to the original number to get the next element.\n\nFor example: `16 + (6 * 1) = 22` and `104 + (4 * 1) = 108`. \n\nLet's begin the same series with a seed value of `3` instead of `1`:\n\n`3, 6, 12, 14, 18, 26, 38, 62, 74, 102, 104, 108, 116, 122`\n\nNotice that the two sequences converge at `26` and are identical therefter. We will call the series seeded by a value of `1` the \"base series\" and the other series the \"test series\". \n\nYou will be given a seed value for the test series and your task will be to return the number of integers that have to be generated in the test series before it converges to the base series. In the case above:\n```Python\nconvergence(3) = 5, the length of [3, 6, 12, 14, 18]. \n```  \n\nGood luck!\n\nIf you like this Kata, please try:\n\n[Simple Prime Streaming](https://www.codewars.com/kata/5a908da30025e995880000e3)\n\n[Unique digit sequence](https://www.codewars.com/kata/599688d0e2800dda4e0001b0)\n\n[Divisor harmony](https://www.codewars.com/kata/59bf97cd4f98a8b1cd00007e)",
+    "generated_code": "\n\ndef convergence(n):\n    base_series = [1]\n    test_series = [n]\n    while True:\n        if n < 10:\n            n += n\n        else:\n            product = 1\n            for digit in str(n):\n                if digit != '0':\n                    product *= int(digit)\n            n += product\n        test_series.append(n)\n        if n in base_series:\n            return len(test_series) - base_series.index(n)\n        base_series.append(base_series[-1] * 2 if base_series[-1] < 10 else base_series[-1] + eval('*'.join(str(base_series[-1]).replace('0', ''))))",
+    "test_cases": [
+        {
+            "input": [
+                5000
+            ],
+            "expected_output": [
+                283
+            ],
+            "generated_output": [
+                23
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
+    "problem_id": 3431,
+    "question": "# A wolf in sheep's clothing\n\nWolves have been reintroduced to Great Britain. You are a sheep farmer, and are now plagued by wolves which pretend to be sheep. Fortunately, you are good at spotting them. \n\nWarn the sheep in front of the wolf that it is about to be eaten. Remember that you are standing **at the front of the queue** which is at the end of the array:\n\n```\n[sheep, sheep, sheep, sheep, sheep, wolf, sheep, sheep]      (YOU ARE HERE AT THE FRONT OF THE QUEUE)\n   7      6      5      4      3            2      1\n```\n\nIf the wolf is the closest animal to you, return `\"Pls go away and stop eating my sheep\"`. Otherwise, return `\"Oi! Sheep number N! You are about to be eaten by a wolf!\"` where `N` is the sheep's position in the queue.\n\n**Note:** there will always be exactly one wolf in the array.\n\n## Examples\n\n```python\nwarn_the_sheep([\"sheep\", \"sheep\", \"sheep\", \"wolf\", \"sheep\"]) == 'Oi! Sheep number 1! You are about to be eaten by a wolf!'\n\nwarn_the_sheep(['sheep', 'sheep', 'wolf']) == 'Pls go away and stop eating my sheep'\n```",
+    "generated_code": "\n\ndef warn_the_sheep(queue):\n    wolf_index = queue.index('wolf')\n    if wolf_index == 0:\n        return 'Pls go away and stop eating my sheep'\n    else:\n        return f'Oi! Sheep number {wolf_index}! You are about to be eaten by a wolf!'",
+    "test_cases": [
+        {
+            "input": [
+                [
+                    "sheep",
+                    "sheep",
+                    "wolf"
+                ]
+            ],
+            "expected_output": [
+                "Pls go away and stop eating my sheep"
+            ],
+            "generated_output": [
+                "Oi! Sheep number 2! You are about to be eaten by a wolf!"
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
+    "problem_id": 1622,
+    "question": "# Ten-Pin Bowling\n\nIn the game of ten-pin bowling, a player rolls a bowling ball down a lane to knock over pins. There are ten pins set at the end of the bowling lane. Each player has 10 frames to roll a bowling ball down a lane and knock over as many pins as possible. The first nine frames are ended after two rolls or when the player knocks down all the pins. The last frame a player will receive an extra roll every time they knock down all ten pins; up to a maximum of three total rolls. \n\n## The Challenge\n\nIn this challenge you will be given a string representing a player's ten frames. It will look something like this: `'X X 9/ 80 X X 90 8/ 7/ 44'` (in Java: `\"X X 9/ 80 X X 90 8/ 7/ 44\"`), where each frame is space-delimited, `'X'` represents strikes, and `'/'` represents spares. Your goal is take in this string of frames into a function called `bowlingScore` and return the players total score.\n\n## Scoring\n\nThe scoring for ten-pin bowling can be difficult to understand, and if you're like most people, easily forgotten if you don't play often. Here is a quick breakdown:\n\n### Frames\n\nIn Ten-Pin Bowling there are ten frames per game. Frames are the players turn to bowl, which can be multiple rolls. The first 9 frames you get 2 rolls maximum to try to get all 10 pins down. **On the 10th or last frame a player will receive an extra roll each time they get all ten pins down to a maximum of three total rolls. Also on the last frame bonuses are not awarded for strikes and spares moving forward.**\n\nIn this challenge, three frames might be represented like this: `54 72 44`. In this case, the player has had three frames. On their first frame they scored 9 points (5 + 4), on their second frame they scored 9 points (7 + 2) and on their third frame they scored 8 points (4 + 4). This is a very simple example of bowling scoring. It gets more complicated when we introduce strikes and spares.\n\n### Strikes \nRepresented in this challenge as `'X'`\n\nA strike is scored when a player knocks all ten pins down in one roll. In the first 9 frames this will conclude the players turn and it will be scored as 10 points plus the points received from the next two rolls. So if a player were to have two frames `X 54`, the total score of those two frames would be 28. The first frame would be worth 19 (10 + 5 + 4) and the second frame would be worth 9 (5 + 4).\n\nA perfect game in bowling is 12 strikes in a row and would be represented like this `'X X X X X X X X X XXX'` (in Java: `\"X X X X X X X X X XXX\"`). This adds up to a total score of 300.\n\n### Spares\nRepresented in this challenge as `'/'`\n\nA spare is scored when a player knocks down all ten pins in two rolls. In the first 9 frames this will be scored as 10 points plus the next roll. So if a player were to have two frames `9/ 54`, the total score of the two frames would be 24. The first frame would be worth 15 (10 + 5) and the second frame would be worth 9 (5 + 4).\n\nFor a more detailed explanation see Wikipedia: \n\nhttp://en.wikipedia.org/wiki/Ten-pin_bowling#Scoring",
+    "generated_code": "\ndef bowling_score(frames):\n    frames = frames.split()\n    total = 0\n    roll = 0\n    for i in range(10):\n        if frames[roll] == 'X':\n            total += 10\n            if roll + 1 < len(frames) and frames[roll + 1] == 'X':\n                total += 10\n                if roll + 2 < len(frames) and frames[roll + 2] == 'X':\n                    total += 10\n                elif roll + 2 < len(frames) and frames[roll + 2].isdigit():\n                    total += int(frames[roll + 2])\n            elif roll + 1 < len(frames) and frames[roll + 1].isdigit():\n                total += int(frames[roll + 1])\n                if roll + 2 < len(frames) and frames[roll + 2].isdigit():\n                    total += int(frames[roll + 2])\n            roll += 1\n        elif '/' in frames[roll]:\n            total += 10\n            if roll + 1 < len(frames) and frames[roll + 1] == 'X':\n                total += 10\n            elif roll + 1 < len(frames) and frames[roll + 1].isdigit():\n                total += int(frames[roll + 1])\n            roll += 1\n        else:\n            total += sum(int(digit) for digit in frames[roll])\n            roll += 1\n    return total",
+    "test_cases": [
+        {
+            "input": [
+                "00 00 00 00 00 00 00 00 X 0/X"
+            ],
+            "expected_output": [
+                40
+            ],
+            "generated_output": [
+                20
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
+    "problem_id": 2841,
+    "question": "Taking into consideration the [3.5 edition rules](http://www.dandwiki.com/wiki/SRD:Ability_Scores#Table:_Ability_Modifiers_and_Bonus_Spells), your goal is to build a function that takes an ability score (worry not about validation: it is always going to be a non negative integer), will return:\n\n* attribute modifier, as indicated on the table of the above link;\n* maximum spell level for the spells you can cast (-1 for no spells at all) with that score;\n* the eventual extra spells you might get (as an array/list, with elements representing extra spells for 1st, 2nd,... spell level in order; empty array for no extra spells).\n\nThe result needs to be an object (associative array in PHP), as shown in the examples:\n\n```python\nchar_attribute(0) == {\"modifier\": 0, \"maximum_spell_level\": -1, \"extra_spells\": []}\nchar_attribute(1) == {\"modifier\": -5, \"maximum_spell_level\": -1, \"extra_spells\": []}\nchar_attribute(5) == {\"modifier\": -3, \"maximum_spell_level\": -1, \"extra_spells\": []}\nchar_attribute(10) == {\"modifier\": 0, \"maximum_spell_level\": 0, \"extra_spells\": []}\nchar_attribute(20) == {\"modifier\": +5, \"maximum_spell_level\": 9, \"extra_spells\": [2,1,1,1,1]}\n```\n\n*Note: I didn't explain things in detail and just pointed out to the table on purpose, as my goal is also to train the pattern recognition skills of whoever is going to take this challenges, so do not complain about a summary description. Thanks :)*\n\nIn the same series:\n\n* [D&D Character generator #1: attribute modifiers and spells](https://www.codewars.com/kata/d-and-d-character-generator-number-1-attribute-modifiers-and-spells/)\n* [D&D Character generator #2: psion power points](https://www.codewars.com/kata/d-and-d-character-generator-number-2-psion-power-points/)\n* [D&D Character generator #3: carrying capacity](https://www.codewars.com/kata/d-and-d-character-generator-number-3-carrying-capacity/)",
+    "generated_code": "\n\ndef char_attribute(score):\n    modifier = (score - 10) // 2\n    maximum_spell_level = -1 if score < 10 else (score - 10) // 2\n    extra_spells = [] if score < 16 else [2, 1, 1, 1, 1]\n    return {\"modifier\": modifier, \"maximum_spell_level\": maximum_spell_level, \"extra_spells\": extra_spells}",
+    "test_cases": [
+        {
+            "input": [
+                20
+            ],
+            "expected_output": [
+                {
+                    "modifier": 5,
+                    "maximum_spell_level": 9,
+                    "extra_spells": [
+                        2,
+                        1,
+                        1,
+                        1,
+                        1
+                    ]
+                }
+            ],
+            "generated_output": [
+                {
+                    "modifier": 5,
+                    "maximum_spell_level": 5,
+                    "extra_spells": [
+                        2,
+                        1,
+                        1,
+                        1,
+                        1
+                    ]
+                }
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
+    "problem_id": 3106,
+    "question": "You have a set of four (4) balls labeled with different numbers: ball_1 (1), ball_2 (2), ball_3 (3) and ball(4) and we have 3 equal boxes for distribute them. The possible combinations of the balls, without having empty boxes, are:\n\n```\n (1)            (2)        (3)(4)     \n______        ______       _______ \n    \n```\n\n```\n (1)           (2)(4)        (3)\n______         ______      ______\n  \n```\n\n```\n(1)(4)           (2)         (3)\n______          ______      ______\n\n```\n\n```\n  (1)           (2)(3)       (4)\n_______         _______     ______\n\n```\n\n```\n(1)(3)            (2)        (4)\n_______         _______     ______\n```\n\n```\n(1)(2)            (3)        (4)\n_______         _______     ______\n```\nWe have a total of **6** combinations.\n\nThink how many combinations you will have with two boxes instead of three. You will obtain **7** combinations.\n\nObviously, the four balls in only box will give only one possible combination (the four balls in the unique box). Another particular case is the four balls in four boxes having again one possible combination(Each box having one ball).\n\nWhat will be the reasonable result for a set of n elements with no boxes?\n\nThink to create a function that may calculate the amount of these combinations of a set of ```n``` elements in ```k``` boxes.\n\nYou do no not have to check the inputs type that will be always valid integers.\n\nThe code should detect the cases when ```k > n```, returning \"It cannot be possible!\". \n\nFeatures of the random tests:\n```\n1 <= k <= n <= 800\n```\nRuby version will be published soon.",
+    "generated_code": "\n\ndef combs_non_empty_boxes(n,k):\n    if k > n:\n        return \"It cannot be possible!\"\n    else:\n        import math\n        return math.comb(n-1, k-1)",
+    "test_cases": [
+        {
+            "input": [
+                20,
+                8
+            ],
+            "expected_output": [
+                15170932662679
+            ],
+            "generated_output": [
+                50388
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
+    "problem_id": 4200,
+    "question": "You get a \"text\" and have to shift the vowels by \"n\" positions to the right.\n(Negative value for n should shift to the left.)\n\"Position\" means the vowel's position if taken as one item in a list of all vowels within the string.\nA shift by 1 would mean, that every vowel shifts to the place of the next vowel.\nShifting over the edges of the text should continue at the other edge.\n\nExample:\n\ntext = \"This is a test!\"\nn = 1\noutput = \"Thes is i tast!\"\n\ntext = \"This is a test!\"\nn = 3\noutput = \"This as e tist!\"\n\nIf text is null or empty return exactly this value.\nVowels are \"a,e,i,o,u\".\n\n\n\nHave fun coding it and please don't forget to vote and rank this kata! :-)\n\nI have created other katas. Have a look if you like coding and challenges.",
+    "generated_code": "\n\ndef vowel_shift(text, n):\n    if not text:\n        return text\n    vowels = 'aeiou'\n    text = list(text)\n    vs = [c for c in text if c in vowels]\n    vs = vs[-n % len(vs):] + vs[:-n % len(vs)]\n    for i, c in enumerate(text):\n        if c in vowels:\n            text[i] = vs.pop(0)\n    return ''.join(text)",
+    "test_cases": [
+        {
+            "input": [
+                "AEIOUaeiou",
+                1
+            ],
+            "expected_output": [
+                "uAEIOUaeio"
+            ],
+            "generated_output": [
+                "AEIOUuaeio"
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
+    "problem_id": 3587,
+    "question": "# Task\n\nJohn has an important number, and he doesn't want others to see it.\n\nHe decided to encrypt the number, using the following steps:\n```\nHis number is always a non strict increasing sequence\nie. \"123\"\n\nHe converted each digit into English words.\nie. \"123\"--> \"ONETWOTHREE\"\n\nAnd then, rearrange the letters randomly.\nie. \"ONETWOTHREE\" --> \"TTONWOHREEE\"\n```\n\nJohn felt that his number were safe in doing so. In fact, such encryption can be easily decrypted :(\n\nGiven the encrypted string `s`, your task is to decrypt it, return the original number in string format.\n\nNote, You can assume that the input string `s` is always valid; It contains only uppercase Letters; The decrypted numbers are arranged in ascending order; The leading zeros are allowed.\n\n\n# Example\n\nFor `s = \"ONE\"`, the output should be `1`.\n\nFor `s = \"EON\"`, the output should be `1` too.\n\nFor `s = \"ONETWO\"`, the output should be `12`.\n\nFor `s = \"OONETW\"`, the output should be `12` too.\n\nFor `s = \"ONETWOTHREE\"`, the output should be `123`.\n\nFor `s = \"TTONWOHREEE\"`, the output should be `123` too.",
+    "generated_code": "\n\ndef original_number(s):\n    d = {'Z': '0', 'O': '1', 'T': '2', 'H': '3', 'F': '4', 'S': '5', 'E': '6', 'N': '7', 'I': '8', 'G': '9'}\n    c = {}\n    for i in s:\n        if i in c:\n            c[i] += 1\n        else:\n            c[i] = 1\n    res = ''\n    for k, v in sorted(c.items()):\n        res += d[k] * v\n    return res",
+    "test_cases": [
+        {
+            "input": [
+                "TTONWOHREEE"
+            ],
+            "expected_output": [
+                "123"
+            ],
+            "generated_output": null,
+            "passed": false,
+            "traceback": "Traceback (most recent call last):\n  File \"/Users/antoniborys/Library/CloudStorage/OneDrive-Personal/TUM/Master/Extracurr/24.11 Makeathon/Cloned repo/team5/utilities/testing_util.py\", line 296, in run_test\n    output = method(*inputs)\n  File \"<string>\", line 28, in original_number\nKeyError: 'R'\n"
+        }
+    ]
+}
+{
+    "problem_id": 3345,
+    "question": "There is an array of strings. All strings contains similar _letters_ except one. Try to find it!\n\n```python\nfind_uniq([ 'Aa', 'aaa', 'aaaaa', 'BbBb', 'Aaaa', 'AaAaAa', 'a' ]) # => 'BbBb'\nfind_uniq([ 'abc', 'acb', 'bac', 'foo', 'bca', 'cab', 'cba' ]) # => 'foo'\n```\n\nStrings may contain spaces. Spaces is not significant, only non-spaces symbols matters. E.g. string that contains only spaces is like empty string.\n\nIt\u2019s guaranteed that array contains more than 3 strings.\n\nThis is the second kata in series:\n\n1. [Find the unique number](https://www.codewars.com/kata/585d7d5adb20cf33cb000235)\n2. Find the unique string (this kata)\n3. [Find The Unique](https://www.codewars.com/kata/5862e0db4f7ab47bed0000e5)",
+    "generated_code": "\n\ndef find_uniq(arr):\n    arr = [''.join(sorted(set(s.replace(' ', '').lower()))) for s in arr]\n    for s in arr:\n        if arr.count(s) == 1:\n            return arr[arr.index(s)]",
+    "test_cases": [
+        {
+            "input": [
+                [
+                    "foobar",
+                    "barfo",
+                    "fobara",
+                    "   ",
+                    "fobra",
+                    "oooofrab"
+                ]
+            ],
+            "expected_output": [
+                "   "
+            ],
+            "generated_output": [
+                ""
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
+    "problem_id": 4688,
+    "question": "# Write Number in Expanded Form - Part 2\n\nThis is version 2 of my ['Write Number in Exanded Form' Kata](https://www.codewars.com/kata/write-number-in-expanded-form).\n\nYou will be given a number and you will need to return it as a string in [Expanded Form](https://www.mathplacementreview.com/arithmetic/decimals.php#writing-a-decimal-in-expanded-form). For example:\n\n```python\nexpanded_form(1.24) # Should return '1 + 2/10 + 4/100'\nexpanded_form(7.304) # Should return '7 + 3/10 + 4/1000'\nexpanded_form(0.04) # Should return '4/100'\n```",
+    "generated_code": "\n\ndef expanded_form(num):\n    num_str = str(num).split('.')\n    whole_part = num_str[0]\n    fractional_part = num_str[1]\n    result = ''\n    for i, digit in enumerate(whole_part):\n        if digit != '0':\n            result += digit + ' + '\n    if fractional_part != '0':\n        result = result.rstrip(' + ')\n        for i, digit in enumerate(fractional_part):\n            if digit != '0':\n                result += ' + ' + digit + '/' + '10' * (i + 1)\n    return result.rstrip(' + ')",
+    "test_cases": [
+        {
+            "input": [
+                693.230459
+            ],
+            "expected_output": [
+                "600 + 90 + 3 + 2/10 + 3/100 + 4/10000 + 5/100000 + 9/1000000"
+            ],
+            "generated_output": [
+                "6 + 9 + 3 + 2/10 + 3/1010 + 4/10101010 + 5/1010101010 + 9/101010101010"
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
+    "problem_id": 4077,
+    "question": "The new football league season is coming and the Football Association need some help resetting the league standings. Normally the initial league standing is done in alphabetical order (from A to Z) but this year the FA have decided to freshen it up. \n\nIt has been decided that team who finished first last season will begin the next season in first place. Regardless of what letter their club begins with. e.g. if Manchester City were in first place last year, they will begin the season in position one. All other teams should be in alphabetical order. \n\nThe teams will be fed in as an object ({}). The key will be will be their position from last season and the value is the club's name e.g. Arsenal. \n\nThe output should be an object ({}) with the key as the club's starting position for the new season and the value should be club's name e.g. Arsenal.\n\nFor example. If in the previous season the standings were:\n\n1:'Leeds United'\n2:'Liverpool'\n3:'Manchester City'\n4:'Coventry'\n5:'Arsenal' \n\nThen the new season standings should \n\n1:'Leeds United' (first last season)\n2:'Arsenal' (alphabetical)\n3:'Coventry' (alphabetical) \n4:'Liverpool' (alphabetical) \n5:'Manchester City' (alphabetical)",
+    "generated_code": "\n\ndef premier_league_standings(teams):\n    first_place = teams[1]\n    rest_of_teams = sorted([team for team in teams.values() if team != first_place])\n    return {1: first_place} | {i+1: team for i, team in enumerate(rest_of_teams)}",
+    "test_cases": [
+        {
+            "input": [
+                {
+                    "1": "Leeds United",
+                    "2": "Liverpool",
+                    "3": "Manchester City",
+                    "4": "Coventry",
+                    "5": "Arsenal"
+                }
+            ],
+            "expected_output": {
+                "1": "Leeds United",
+                "2": "Arsenal",
+                "3": "Coventry",
+                "4": "Liverpool",
+                "5": "Manchester City"
+            },
+            "generated_output": [
+                {
+                    "1": "Arsenal",
+                    "2": "Coventry",
+                    "3": "Liverpool",
+                    "4": "Manchester City"
+                }
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
+    "problem_id": 2655,
+    "question": "You've arrived at a carnival and head straight for the duck shooting tent. Why wouldn't you?\n\nYou will be given a set amount of ammo, and an aim rating of between 1 and 0. No your aim is not always perfect - hey maybe someone fiddled with the sights on the gun...\n\nAnyway your task is to calculate how many successful shots you will be able to make given the available ammo and your aim score, then return a string representing the pool of ducks, with those ducks shot marked with 'X' and those that survived left unchanged. You will always shoot left to right.\n\nExample of start and end duck string with two successful shots:\n\nStart ---> |~~~~~22~2~~~~~|\n\n**Bang!! Bang!!**\n\nEnd  --->  |~~~~~XX~2~~~~~|\n\nAll inputs will be correct type and never empty.",
+    "generated_code": "\n\ndef duck_shoot(ammo, aim, ducks):\n    shots = int(ammo * aim)\n    return ducks[:shots].replace('~', 'X') + ducks[shots:]",
+    "test_cases": [
+        {
+            "input": [
+                8,
+                0.92,
+                "|~~~~2~2~~~~~22~~2~~~~2~~~2|"
+            ],
+            "expected_output": [
+                "|~~~~X~X~~~~~XX~~X~~~~X~~~X|"
+            ],
+            "generated_output": [
+                "|XXXX2X2~~~~~22~~2~~~~2~~~2|"
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
+    "problem_id": 4009,
+    "question": "Given an integer, take the (mean) average of each pair of consecutive digits. Repeat this process until you have a single integer, then return that integer. e.g.\n\nNote: if the average of two digits is not an integer, round the result **up** (e.g. the average of 8 and 9 will be 9)\n\n## Examples\n\n```\ndigitsAverage(246)  ==>  4\n\noriginal: 2   4   6\n           \\ / \\ /\n1st iter:   3   5\n             \\ /\n2nd iter:     4\n\n\ndigitsAverage(89)  ==>  9\n\noriginal: 8   9\n           \\ /\n1st iter:   9\n```\n\np.s. for a bigger challenge, check out the [one line version](https://www.codewars.com/kata/one-line-task-digits-average) of this kata by myjinxin2015!",
+    "generated_code": "\n\ndef digits_average(input):\n    while input > 9:\n        input = sum((input // 10 ** i) % 10 + (input // 10 ** (i + 1)) % 10 for i in range(0, len(str(input)) - 1, 2)) // 2\n        if input * 2 != sum((input // 10 ** i) % 10 + (input // 10 ** (i + 1)) % 10 for i in range(0, len(str(input)) - 1, 2)): input += 1\n    return input",
+    "test_cases": [
+        {
+            "input": [
+                3700
+            ],
+            "expected_output": [
+                4
+            ],
+            "generated_output": [
+                6
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
+    "problem_id": 4355,
+    "question": "## Euler's Method\n\nWe want to calculate the shape of an unknown curve which starts at a given point \nwith a given slope. This curve satisfies an ordinary differential equation (ODE):\n\n```math\n\\frac{dy}{dx} = f(x, y);\\\\\ny(x_0) = y_0\n```\n\nThe starting point `$ A_0 (x_0, y_0) $` is known as well as the slope to the curve \nat `$ A_0 $` and then the tangent line at `$ A_0 $` .\n\nTake a small step along that tangent line up to a point `$ A_1 $`. Along this small step, \nthe slope does not change too much, so `$ A_1 $` will be close to the curve. \nIf we suppose that `$ A_1 $` is close enough to the curve, the same reasoning \nas for the point `$ A_1 $` above can be used for other points. \nAfter several steps, a polygonal curve `$ A_0, A_1, ..., A_n $` is computed. \nThe error between the two curves will be small if the step is small.\n\nWe define points `$ A_0, A_1, A_2, ..., A_n $`\nwhose x-coordinates are `$ x_0, x_1, ..., x_n $`\nand y-coordinates are such that `$ y_{k+1} = y_k + f(x_k, y_k) \\times h $` \nwhere `$ h $` is the common step. If `$ T $` is the length `$ x_n - x_0 $` we have `$ h = T/n $`.\n\n## Task\n\nFor this kata we will focus on the following differential equation:\n\n```math\n\\frac{dy}{dx} = 2 - e^{-4x} - 2y; \\\\\nA_0 = (0,1)\n```\nwith `$ x \u2208 [0, 1] $`. We will then take a uniform partition of the region of `$ x $` between `$ 0 $` and `$ 1 $` and split it into `$ n $` + 1 sections. `$ n $` will be the input to the function `ex_euler(n)` and since `$ T $` is always 1, `$ h = 1/n $`.\n\nWe know that an exact solution is\n```math\ny = 1 + 0.5e^{-4x} - 0.5e^{-2x}.\n```\nFor each `$ x_k $` we are able to calculate the `$ y_k $` as well as the values `$ z_k $` of the exact solution.\n\nOur task is, for a given number `$ n $` of steps, to return the mean (*truncated* to 6 decimal places)\nof the relative errors between the `$ y_k $` (our aproximation) and the `$ z_k $` (the exact solution). \nFor that we can use:\n\nerror in `$ A_k = abs(y_k - z_k) / z_k $` and then the mean is sum(errors in `$ A_k $`)/ (`$ n $` + 1)\n\n## Examples\n\n```python\nex_euler(10) should return: 0.026314 (truncated from 0.026314433214799246)\nwith\nY = [1.0,0.9..., 0.85..., 0.83..., 0.83..., 0.85..., 0.86..., 0.88..., 0.90..., 0.91..., 0.93...]\nZ = [1.0, 0.9..., 0.88..., 0.87..., 0.87..., 0.88..., 0.89..., 0.90..., 0.91..., 0.93..., 0.94...]\nRelative errors = [0.0, 0.02..., 0.04..., 0.04..., 0.04..., 0.03..., 0.03..., 0.02..., 0.01..., 0.01..., 0.01...]\n```\n`ex_euler(17)` should return: `0.015193 (truncated from 0.015193336263370796)`.\nAs expected, as `$ n $` increases, our error reduces.\n### Links and graphs\n\nWiki article\n\n![alternative text](http://i.imgur.com/vjK7edl.png)\n\nBelow comparison between approximation (red curve) and exact solution(blue curve) for n=100:\n![alternative text](http://i.imgur.com/KufSkYEm.png)",
+    "generated_code": "\n\ndef ex_euler(n):\n    h = 1.0 / n\n    y = 1.0\n    z = 1.0\n    errors = 0.0\n    for i in range(n + 1):\n        y_new = y + h * (2 - 0.3678794412**i - 2 * y)\n        z_new = 1 + 0.5 * 0.0183156389**i - 0.5 * 0.1353352832**i\n        errors += abs(y_new - z_new) / z_new\n        y = y_new\n        z = z_new\n    return round(errors / (n + 1), 6)",
+    "test_cases": [
+        {
+            "input": [
+                2000
+            ],
+            "expected_output": [
+                0.000125
+            ],
+            "generated_output": [
+                0.000376
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
+    "problem_id": 2732,
+    "question": "## Task\n\nYou will receive a string consisting of lowercase letters, uppercase letters and digits as input. Your task is to return this string as blocks separated by dashes (`\"-\"`). The elements of a block should be sorted with respect to the hierarchy listed below, and each block cannot contain multiple instances of the same character. Elements should be put into the first suitable block.\n\nThe hierarchy is:\n1. lowercase letters (`a - z`), in alphabetical order\n2. uppercase letters (`A - Z`), in alphabetical order\n3. digits (`0 - 9`), in ascending order\n\n## Examples\n\n* `\"21AxBz\" -> \"xzAB12\"` - since input does not contain repeating characters, you only need 1 block\n* `\"abacad\" -> \"abcd-a-a\"` - character \"a\" repeats 3 times, thus 3 blocks are needed\n* `\"\" -> \"\"` - an empty input should result in an empty output\n* `\"hbh420sUUW222IWOxndjn93cdop69NICEep832\" -> \"bcdehjnopsxCEINOUW0234689-dhnpIUW239-2-2-2\"` - a more sophisticated example\n\nGood luck!",
+    "generated_code": "\n\ndef blocks(s):\n    s = sorted(s)\n    result = []\n    current_block = []\n    for char in s:\n        if not current_block or (char in 'abcdefghijklmnopqrstuvwxyz' and current_block[0] in 'abcdefghijklmnopqrstuvwxyz') or (char in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' and current_block[0] in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') or (char in '0123456789' and current_block[0] in '0123456789'):\n            if char not in current_block:\n                current_block.append(char)\n        else:\n            result.append(''.join(current_block))\n            current_block = [char]\n    if current_block:\n        result.append(''.join(current_block))\n    return '-'.join(result)",
+    "test_cases": [
+        {
+            "input": [
+                "aaaaaaaaaa"
+            ],
+            "expected_output": [
+                "a-a-a-a-a-a-a-a-a-a"
+            ],
+            "generated_output": [
+                "a"
+            ],
+            "passed": false,
+            "traceback": null
         }
     ]
 }
