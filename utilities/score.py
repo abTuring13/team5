@@ -38,7 +38,7 @@ def score(generation_func: Callable, client: Client, dataset_path: str, length: 
             eval=True,
             timeout=5,
         )
-        res = deepcopy(result)
+        """res = deepcopy(result)
         if res[0]['passed'] == False:
             analysis = {
                 "problem_id": problem["problem_id"],
@@ -56,7 +56,7 @@ def score(generation_func: Callable, client: Client, dataset_path: str, length: 
                     "traceback": res.get("traceback"),
                 })
             with open("analysis_results.json", "a") as f:
-                f.write(json.dumps(analysis, indent=4) + "\n")
+                f.write(json.dumps(analysis, indent=4) + "\n")"""
 
         passed = [r["passed"] for r in result]
         passed_test_cases = sum(passed)

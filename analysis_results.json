@@ -1,0 +1,209 @@
+{
+    "problem_id": 4577,
+    "question": "Take debugging to a whole new level:\n\nGiven a string, remove every *single* bug.\n\nThis means you must remove all instances of the word 'bug' from within a given string, *unless* the word is plural ('bugs').\n\nFor example, given 'obugobugobuoobugsoo', you should return 'ooobuoobugsoo'.\n\nAnother example: given 'obbugugo', you should return 'obugo'.\n\nNote that all characters will be lowercase.\n\nHappy squishing!",
+    "generated_code": "def debug(s):\n    return s.replace('bug', '')",
+    "test_cases": [
+        {
+            "input": [
+                "oaisjdfowjefpoibugsjsofijeo oi bugs o bug f bug poaj sfd s"
+            ],
+            "expected_output": [
+                "oaisjdfowjefpoibugsjsofijeo oi bugs o  f  poaj sfd s"
+            ],
+            "generated_output": [
+                "oaisjdfowjefpoisjsofijeo oi s o  f  poaj sfd s"
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
+    "problem_id": 2835,
+    "question": "Consider a sequence made up of the consecutive prime numbers. This infinite sequence would start with: \n```python\n\"2357111317192329313741434753596167717379...\"\n```\n\nYou will be given two numbers: `a` and `b`, and your task will be to return `b` elements starting from index `a` in this sequence.\n```\nFor example:\nsolve(10,5) == `19232` Because these are 5 elements from index 10 in the sequence.\n```\n\nTests go up to about index `20000`.\n\nMore examples in test cases. Good luck!\n\nPlease also try [Simple time difference](https://www.codewars.com/kata/5b76a34ff71e5de9db0000f2)",
+    "generated_code": "def solve(a, b):\n    def is_prime(n):\n        if n < 2:\n            return False\n        for i in range(2, int(n**0.5) + 1):\n            if n % i == 0:\n                return False\n        return True\n\n    primes = []\n    i = 2\n    while len(primes) < a + b:\n        if is_prime(i):\n            primes.append(str(i))\n        i += 1\n    return ''.join(primes[a:a+b])",
+    "test_cases": [
+        {
+            "input": [
+                20000,
+                5
+            ],
+            "expected_output": [
+                "09334"
+            ],
+            "generated_output": [
+                "224743224759224771224797224813"
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
+    "problem_id": 4566,
+    "question": "You need count how many valleys you will pass.\n\nStart is always from zero level.\n\nEvery time you go down below 0 level counts as an entry of a valley, and as you go up to 0 level from valley counts as an exit of a valley.\n\nOne passed valley is equal one entry and one exit of a valley.\n```\ns='FUFFDDFDUDFUFUF'\nU=UP\nF=FORWARD\nD=DOWN\n```\n\nTo represent string above\n```\n(level 1)  __\n(level 0)_/  \\         _(exit we are again on level 0)\n(entry-1)     \\_     _/\n(level-2)       \\/\\_/\n```\nSo here we passed one valley",
+    "generated_code": "def counting_valleys(s):\n    level = 0\n    valley = 0\n    for i in s:\n        if i == 'U':\n            level += 1\n        else:\n            level -= 1\n        if level == 0 and i == 'U':\n            valley += 1\n    return valley",
+    "test_cases": [
+        {
+            "input": [
+                "UFFDDFDUDFUFUUFFDDFDUDFUFUUFFDDFDUDFUFUUFFDDFDUDFUFUUFFDDFDUDFUFUUFFDDFDUDFUFU"
+            ],
+            "expected_output": [
+                6
+            ],
+            "generated_output": [
+                0
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
+    "problem_id": 3309,
+    "question": "## Overview\nResistors are electrical components marked with colorful stripes/bands to indicate both their resistance value in ohms and how tight a tolerance that value has. If you did my Resistor Color Codes kata, you wrote a function which took a string containing a resistor's band colors, and returned a string identifying the resistor's ohms and tolerance values.\n\n\nWell, now you need that in reverse: The previous owner of your \"Beyond-Ultimate Raspberry Pi Starter Kit\" (as featured in my Fizz Buzz Cuckoo Clock kata) had emptied all the tiny labeled zip-lock bags of components into the box, so that for each resistor you need for a project, instead of looking for text on a label, you need to find one with the sequence of band colors that matches the ohms value you need.\n\n## The resistor color codes\nYou can see this Wikipedia page for a colorful chart, but the basic resistor color codes are:\n\n0: black, 1: brown, 2: red, 3: orange, 4: yellow, 5: green, 6: blue, 7: violet, 8: gray, 9: white\n\nAll resistors have at least three bands, with the first and second bands indicating the first two digits of the ohms value, and the third indicating the power of ten to multiply them by, for example a resistor with a value of 47 ohms, which equals 47 * 10^0 ohms, would have the three bands \"yellow violet black\".\n\nMost resistors also have a fourth band indicating tolerance -- in an electronics kit like yours, the tolerance will always be 5%, which is indicated by a gold band. So in your kit, the 47-ohm resistor in the above paragraph would have the four bands \"yellow violet black gold\".\n\n## Your mission\nYour function will receive a string containing the ohms value you need, followed by a space and the word \"ohms\" (to avoid Codewars unicode headaches I'm just using the word instead of the ohms unicode symbol). The way an ohms value is formatted depends on the magnitude of the value:\n\n* For resistors less than 1000 ohms, the ohms value is just formatted as the plain number. For example, with the 47-ohm resistor above, your function would receive the string `\"47 ohms\"`, and return the string `\"yellow violet black gold\".\n\n* For resistors greater than or equal to 1000 ohms, but less than 1000000 ohms, the ohms value is divided by 1000, and has a lower-case \"k\" after it. For example, if your function received the string `\"4.7k ohms\"`, it would need to return the string `\"yellow violet red gold\"`.\n\n* For resistors of 1000000 ohms or greater, the ohms value is divided by 1000000, and has an upper-case \"M\" after it. For example, if your function received the string `\"1M ohms\"`, it would need to return the string `\"brown black green gold\"`. \n\nTest case resistor values will all be between 10 ohms and 990M ohms.\n\n## More examples, featuring some common resistor values from your kit\n```\n\"10 ohms\"        \"brown black black gold\"\n\"100 ohms\"       \"brown black brown gold\"\n\"220 ohms\"       \"red red brown gold\"\n\"330 ohms\"       \"orange orange brown gold\"\n\"470 ohms\"       \"yellow violet brown gold\"\n\"680 ohms\"       \"blue gray brown gold\"\n\"1k ohms\"        \"brown black red gold\"\n\"10k ohms\"       \"brown black orange gold\"\n\"22k ohms\"       \"red red orange gold\"\n\"47k ohms\"       \"yellow violet orange gold\"\n\"100k ohms\"      \"brown black yellow gold\"\n\"330k ohms\"      \"orange orange yellow gold\"\n\"2M ohms\"        \"red black green gold\"\n```\n\nHave fun!",
+    "generated_code": "def encode_resistor_colors(ohms_string):\n    colors = [\"black\", \"brown\", \"red\", \"orange\", \"yellow\", \"green\", \"blue\", \"violet\", \"gray\", \"white\"]\n    ohms, _ = ohms_string.split()\n    if ohms.endswith(\"k\"):\n        ohms = float(ohms[:-1]) * 1000\n    elif ohms.endswith(\"M\"):\n        ohms = float(ohms[:-1]) * 1000000\n    ohms = int(ohms)\n    first_digit = ohms // 10 % 10\n    second_digit = ohms % 10\n    multiplier = 0\n    while ohms >= 1000:\n        ohms /= 10\n        multiplier += 1\n    return f\"{colors[first_digit]} {colors[second_digit]} {colors[multiplier]} gold\"",
+    "test_cases": [
+        {
+            "input": [
+                "2M ohms"
+            ],
+            "expected_output": [
+                "red black green gold"
+            ],
+            "generated_output": [
+                "black black yellow gold"
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
+    "problem_id": 3822,
+    "question": "For a given array whose element values are randomly picked from single-digit integers `0` to `9`, return an array with the same digit order but all `0`'s paired. Paring two `0`'s generates one `0` at the location of the first.\n\nEx:\n```python\npair_zeros([0, 1, 0, 2])\n# paired: ^-----^ cull second zero\n       == [0, 1, 2];\n#   kept: ^\n\npair_zeros([0, 1, 0, 0])\n# paired: ^-----^\n       == [0, 1,    0];\n#   kept: ^\n\npair_zeros([1, 0, 7, 0, 1])\n# paired:    ^-----^\n       == [1, 0, 7,    1];\n#   kept:    ^\n\npair_zeros([0, 1, 7, 0, 2, 2, 0, 0, 1, 0])\n# paired: ^--------^ \n#        [0, 1, 7,    2, 2, 0, 0, 1, 0]\n#   kept: ^         paired: ^--^\n       == [0, 1, 7,    2, 2, 0,    1, 0];\n#   kept:                   ^\n```\n\nHere are the 2 important rules:\n\n1. Pairing happens from left to right in the array. However, for each pairing, the \"second\" `0` will always be paired towards the first (right to left)\n2. `0`'s generated by pairing can NOT be paired again",
+    "generated_code": "def pair_zeros(arr):\n    i = 0\n    while i < len(arr):\n        if arr[i] == 0 and i + 1 < len(arr) and arr[i + 1] == 0:\n            arr.pop(i + 1)\n        else:\n            i += 1\n    return arr",
+    "test_cases": [
+        {
+            "input": [
+                [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            ],
+            "expected_output": [
+                [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            ],
+            "generated_output": [
+                [
+                    0
+                ]
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
+    "problem_id": 2840,
+    "question": "## Task\n An `ATM` ran out of 10 dollar bills and only has `100, 50 and 20` dollar bills.\n \n Given an amount between `40 and 10000 dollars (inclusive)` and assuming that the ATM wants to use as few bills as possible, determinate the minimal number of 100, 50 and 20 dollar bills the ATM needs to dispense (in that order).\n\n## Example\n\n For `n = 250`, the result should be `[2, 1, 0]`.\n \n For `n = 260`, the result should be `[2, 0, 3]`.\n \n For `n = 370`, the result should be `[3, 1, 1]`.\n\n## Input/Output\n\n - `[input]` integer `n`\n  Amount of money to withdraw. Assume that `n` is always exchangeable with `[100, 50, 20]` bills.\n - `[output]` integer array\n  An array of number of `100, 50 and 20` dollar bills needed to complete the withdraw (in that order).",
+    "generated_code": "def withdraw(n):\n    return [n//100, (n%100)//50, (n%100)%50//20]",
+    "test_cases": [
+        {
+            "input": [
+                60
+            ],
+            "expected_output": [
+                [
+                    0,
+                    0,
+                    3
+                ]
+            ],
+            "generated_output": [
+                [
+                    0,
+                    1,
+                    0
+                ]
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
+    "problem_id": 3445,
+    "question": "Given the sum and gcd of two numbers, return those two numbers in ascending order. If the numbers do not exist, return `-1`, (or `NULL` in C, `tuple (-1,-1)` in C#, `pair (-1,-1)` in C++,`None` in Rust, `array {-1,-1} ` in Java and Golang).\n\n```\nFor example: \nGiven sum = 12 and gcd = 4...\n\nsolve(12,4) = [4,8]. The two numbers 4 and 8 sum to 12 and have a gcd of 4.\n\nsolve(12,5) = -1. No two numbers exist that sum to 12 and have gcd of 5.\n\nsolve(10,2) = [2,8]. Note that [4,6] is also a possibility but we pick the one with the lower first element: 2 < 4, so we take [2,8].\n```\n\nMore examples in test cases. \n\nGood luck!",
+    "generated_code": "def solve(s,g):\n    if s % g != 0: return -1\n    n = s // g\n    if n % 2 == 0: \n        x = (n // 2)\n        return [g * x, g * (n - x)]\n    return -1",
+    "test_cases": [
+        {
+            "input": [
+                1000,
+                5
+            ],
+            "expected_output": [
+                [
+                    5,
+                    995
+                ]
+            ],
+            "generated_output": [
+                [
+                    500,
+                    500
+                ]
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
+{
+    "problem_id": 3937,
+    "question": "We want to find the numbers higher or equal than 1000 that the sum of every four consecutives digits cannot be higher than a certain given value.\nIf the number is ``` num = d1d2d3d4d5d6 ```, and the maximum sum of 4 contiguous digits is ```maxSum```, then:\n```python\nd1 + d2 + d3 + d4 <= maxSum\nd2 + d3 + d4 + d5 <= maxSum\nd3 + d4 + d5 + d6 <= maxSum\n```\nFor that purpose, we need to create a function, ```max_sumDig()```, that receives ```nMax```, as the max value of the interval to study (the range (1000, nMax) ), and a certain value, ```maxSum```, the maximum sum that every four consecutive digits should be less or equal to. The function should output the following list with the data detailed bellow:\n\n```[(1), (2), (3)]```\n\n(1) - the amount of numbers that satisfy the constraint presented above \n\n(2) - the closest number to the mean of the results, if there are more than one, the smallest number should be chosen.\n\n(3) - the total sum of all the found numbers\n\nLet's see a case with all the details:\n```\nmax_sumDig(2000, 3) -------> [11, 1110, 12555]\n\n(1) -There are 11 found numbers: 1000, 1001, 1002, 1010, 1011, 1020, 1100, 1101, 1110, 1200 and 2000\n\n(2) - The mean of all the found numbers is:\n      (1000 + 1001 + 1002 + 1010 + 1011 + 1020 + 1100 + 1101 + 1110 + 1200 + 2000) /11 = 1141.36363,  \n      so 1110 is the number that is closest to that mean value.\n\n(3) - 12555 is the sum of all the found numbers\n      1000 + 1001 + 1002 + 1010 + 1011 + 1020 + 1100 + 1101 + 1110 + 1200 + 2000 = 12555\n\nFinally, let's see another cases\n```\nmax_sumDig(2000, 4) -----> [21, 1120, 23665]\n\nmax_sumDig(2000, 7) -----> [85, 1200, 99986]\n\nmax_sumDig(3000, 7) -----> [141, 1600, 220756]\n```\n\nHappy coding!!",
+    "generated_code": "def max_sumDig(nMax, maxSum):\n    found = []\n    for num in range(1000, nMax):\n        num_str = str(num)\n        if all(sum(int(digit) for digit in num_str[i:i+4]) <= maxSum for i in range(len(num_str)-3)):\n            found.append(num)\n    mean = sum(found)/len(found)\n    closest_to_mean = min(found, key=lambda x:abs(x-mean))\n    return [len(found), closest_to_mean, sum(found)]",
+    "test_cases": [
+        {
+            "input": [
+                5000,
+                9
+            ],
+            "expected_output": [
+                [
+                    426,
+                    2250,
+                    967696
+                ]
+            ],
+            "generated_output": [
+                [
+                    425,
+                    2250,
+                    962696
+                ]
+            ],
+            "passed": false,
+            "traceback": null
+        }
+    ]
+}
